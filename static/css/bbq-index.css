@@ -1,0 +1,295 @@
+body {
+  font-family: 'Work Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #071122;
+  -webkit-font-smoothing: antialiased;
+}
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+}
+.text-muted {
+  color: #999999;
+}
+p {
+  font-size: 14px;
+  line-height: 1.3;
+}
+p.large {
+  font-size: 16px;
+}
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+  outline: none;
+}
+a:hover,
+a:focus,
+a:active,
+a.active {
+  color: #05070c;
+}
+.quickmix-bbq-logo {
+  display: block;
+  width: 300px;
+  height: 57px;
+  background-image: url('../img/bbq/quickmix-bbq-logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 300px;
+  font-size: 0;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.img-centered {
+  margin: 0 auto;
+}
+.col-md-6 {
+  padding: 0;
+}
+header {
+  text-align: center;
+  color: white;
+}
+header h1 {
+  font-size: 26px;
+  line-height: 127%;
+  margin: 60px auto 50px auto;
+  max-width: 320px;
+}
+header h2 {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 130%;
+  margin: 60px auto 50px auto;
+  max-width: 480px;
+}
+header p {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 130%;
+  margin: 60px auto 30px auto;
+  max-width: 480px;
+}
+.bbq-header {
+  background: url('../img/bbq/bbq-header-bg.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+p.solar-eclipse:before {
+  position: relative;
+  top: 6px;
+  left: -5px;
+  background-image: url('../img/bbq/eclipse.png');
+  background-size: 24px 24px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  content: "";
+}
+#btn-chill {
+  color: #0000FE;
+  background-color: #0066FF;
+}
+#btn-party {
+  color: #FF9201;
+  background-color: #FFE001;
+}
+#btn-feel-good {
+  color: #5a5dff;
+  background-color: #8D8FFF;
+}
+#btn-hangout {
+  color: #13B183;
+  background-color: #2FE7B1;
+}
+.no-touchevents a#btn-chill:hover {
+  color: #0000cb;
+}
+.no-touchevents a#btn-party:hover {
+  color: #cd7500;
+}
+.no-touchevents a#btn-feel-good:hover {
+  color: #3b3fff;
+}
+.no-touchevents a#btn-hangout:hover {
+  color: #0e8361;
+}
+.btn-mood {
+  width: 100%;
+  border-radius: 0;
+  height: 70px;
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 70px;
+  padding: 0 10px;
+  letter-spacing: 0.75px;
+  font-family: "Work Sans", -apple-system, 'BlinkMacSystemFont', 'Source Sans Pro', sans-serif;
+}
+.playlist-option {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+footer {
+  max-width: 500px;
+  color: #FFF;
+  margin: 40px auto 50px auto;
+}
+footer ul {
+  list-style: none;
+  margin: 5px 0;
+  padding: 0;
+}
+footer h4 {
+  padding-top: 20px;
+}
+footer a {
+  font-size: 16px;
+  line-height: 1.3;
+  color: #fff;
+  font-weight: 500;
+}
+footer a:hover {
+  color: #fff;
+}
+@media only screen and (min-width: 600px) {
+  .btn-mood {
+    width: auto;
+    margin: 0 auto;
+    font-size: 30px;
+    margin: 4px;
+    border-radius: 8px;
+  }
+  header h1 {
+    font-size: 46px;
+    line-height: 130%;
+    margin: 60px auto 80px auto;
+    max-width: 630px;
+  }
+  .bbq-buttons {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .playlist-option {
+    width: auto;
+    margin: auto;
+    display: inline-block;
+  }
+  .quickmix-bbq-logo {
+    display: block;
+    width: 375px;
+    height: 72px;
+    background-image: url('../img/bbq/quickmix-bbq-logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 375px;
+    font-size: 0;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  header h1 {
+    font-size: 70px;
+    line-height: 129%;
+    margin: 100px auto 150px auto;
+    max-width: 950px;
+  }
+}
+/* The Overlay (background) */
+.overlay {
+  height: 0;
+  width: 100%;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: #070b13;
+  /* Black fallback color */
+  background-color: rgba(7, 11, 19, 0.94);
+  /* Black w/opacity */
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  transition: 0.3s;
+}
+/* Position the content inside the overlay */
+.overlay-content {
+  position: relative;
+  top: 25%;
+  /* 25% from the top */
+  width: 100%;
+  /* 100% width */
+  text-align: center;
+  /* Centered text/links */
+}
+.overlay-content img {
+  width: 66px;
+  height: 66px;
+}
+.overlay-content h1 {
+  width: 275px;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 18px auto;
+  color: white;
+}
+@media only screen and (min-width: 768px) {
+  .overlay-content img {
+    width: 84px;
+    height: 84px;
+  }
+  .overlay-content h1 {
+    width: 540px;
+    font-size: 45px;
+    margin: 29px auto;
+  }
+}
+ul.social-buttons {
+  margin-bottom: 0;
+}
+ul.social-buttons li a {
+  display: block;
+  background-color: black;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  font-size: 20px;
+  line-height: 40px;
+  color: white;
+  outline: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+ul.social-buttons li a:hover,
+ul.social-buttons li a:focus,
+ul.social-buttons li a:active {
+  background-color: blue;
+}
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn:active:focus {
+  outline: none;
+}
+::-moz-selection {
+  text-shadow: none;
+}
+::selection {
+  text-shadow: none;
+}
+img::selection {
+  background: transparent;
+}
+img::-moz-selection {
+  background: transparent;
+}
+
+/*# sourceMappingURL=bbq-index.css.map */
