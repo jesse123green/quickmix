@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Quickmix BBQ</title>
+    <meta name="description" content="Quickmix makes it easy to create personalized playlists for everyday activities.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,800" rel="stylesheet">
+    <!-- <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=PT+Serif:700' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" href="../static/css/bbq-index.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="../static/img/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../static/img/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../static/img/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../static/img/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../static/img/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../static/img/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../static/img/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../static/img/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../static/img/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../static/img/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/icons/favicon-16x16.png">
+    <link rel="manifest" href="../static/img/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#131D31">
+    <meta name="msapplication-TileImage" content="../static/img/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#131D31">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-80235348-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
+  <body class="home">
+
+
+    <!-- The overlay -->
+    <div id="spotifyOverlay" class="overlay">
+
+      <!-- Overlay content -->
+      <div class="overlay-content">
+        <img class="spotify-logo" src="{{ url_for('static', filename='img/Spotify_Icon_RGB_Green.png')}}">
+        <h1>Sending you to Spotify to sign in…</h1>
+      </div>
+
+    </div>
+
+  	<div class="container-fluid bbq-header">
+    		<header>
+    			<div class="quickmix-bbq-logo">Quickmix BBQ</div>
+          <h2>Make a barbecue playlist that your friends can add to.</h2>
+          <p>Pick a playlist type to get started.</p>
+    		</header>
+        <div class="row bbq-categories">
+          <div class="bbq-buttons">
+            <div class="playlist-option">
+              <a href="javascript:openOverlay('/login?pl=laborday&playlist_option=chill')" class="btn btn-mood" id="btn-hangout"><b>Chill</b></a>
+            </div>
+            <div class="playlist-option">
+              <a href="javascript:openOverlay('/login?pl=laborday&playlist_option=feel_good')" class="btn btn-mood" id="btn-feel-good"><b>Feel Good</b></a>
+            </div>
+            <div class="playlist-option">
+              <a href="javascript:openOverlay('/login?pl=laborday&playlist_option=party')" class="btn btn-mood" id="btn-party"><b>Party</b></a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <footer>
+      <div class="container-fluid">
+        <h4>How It Works</h4>
+        <p>Quickmix BBQ works by finding songs that are similar to songs that you like and similar to songs on other BBQ playlists. It uses data collected from 340 million tracks on over 3 million playlists on Spotify.</p>
+        <h4>Other Playlists</h4>
+        <ul>
+          <li><a href="javascript:openOverlay('/login?pl=chill')">Chill</a></li>
+          <li><a href="javascript:openOverlay('/login?pl=party')">Party</a></li>
+          <li><a href="javascript:openOverlay('/login?pl=workout')">Workout</a></li>
+          <li><a href="javascript:openOverlay('/login?pl=hangout')">Hangout</a></li>
+        </ul>
+        <h4><a href="https://twitter.com/quickmixio">Follow us on Twitter</a></h4>
+        <p class="solar-eclipse">Made while waiting for the solar eclipse in Charlotte, NC</p>
+  	  </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+      function openOverlay(URL) {
+        document.getElementById("spotifyOverlay").style.height = "100%";
+        setTimeout( function() { window.location = URL }, 1200 );
+      }
+    </script>
+    <script src="../static/js/modernizr.js"></script>
+  </body>
+</html>
