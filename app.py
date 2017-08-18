@@ -75,7 +75,7 @@ def buildPlaylist(tracks,activity='relax',n_songs=15,top_n_size=15,n_similar_tra
 
 		### Choose top 100 songs closes to track
 		results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
-		
+
 		### Order songs by distance to activity and return top_n_size
 		sorted_results = sorted(results, key=itemgetter('activity_score'), reverse=True)
 		# print [x['activity_score'] for x in sorted_results]
@@ -115,7 +115,7 @@ def playlistSongs(tracks,activity='relax'):
 
 		### Choose top songs closest to track
 		results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
-		
+
 		### Order songs by distance to activity and return top_n_size
 		sorted_results = sorted(results, key=itemgetter('activity_score'), reverse=True)
 		# print [x['activity_score'] for x in sorted_results]
@@ -139,6 +139,10 @@ basic_auth = BasicAuth(app)
 def index():
 	return render_template('index.html')
 
+@app.route('/bbq')
+def bbq_index():
+	return render_template('bbq/index.html')
+
 @app.route('/tune')
 def tune():
 	pl_type = request.args.get('pl');
@@ -151,6 +155,8 @@ def tune():
 		tuners = ["Warm Up","Gym","Cardio"];
 	elif pl_type == 'hangout':
 		tuners = ["Dinner","Feel Good","BBQ"];
+	elif pl_type == 'laborday':
+		tuners = ["Chill","Feel Good","Party"];
 	else:
 		tuners = ["","",""];
 		pl_type = "bogus"
@@ -163,6 +169,21 @@ def pl():
 	if pl_type == None:
 		pl_type = 'bogus'
 	return render_template('playlist.html', type=pl_type)
+
+@app.route('/bbq/playlist')
+def pl_bbq_owner():
+	pl_type = request.args.get('pl')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/owner_playlist.html', type=pl_type)
+
+@app.route('/bbq/collaborate/<playlist_id>')
+def pl_bbq_collaborate(playlist_id):
+	pl_type = request.args.get('pl')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/owner_playlist.html', type=pl_type)
+
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -199,8 +220,13 @@ def callback():
 			refresh_token = D['refresh_token']
 			pl = request.cookies.get('pl')
 
+			print pl,"hi"
+
+			if pl == "laborday":
+				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
+			else:
+				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
 			# session['access_token'] = access_token
-			response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
 			response.set_cookie(stateKey, '', expires=0)
 
 			return response
