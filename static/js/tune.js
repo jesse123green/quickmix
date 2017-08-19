@@ -145,12 +145,16 @@ $(document).ready(function() {
 
     // Send to backend for validation
     data = {'tracks':user_tracks,'category':playlist_type}
+    // console.log(JSON.stringify(data, null, '\t'))
     $.ajax({
         type : "POST",
-        url : "/api/validate",
+        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/stage/quickmix_validate/validate",
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
+          
+          result = JSON.parse(result['body'])
+
           // Validation success
           validated_influencers = result['data'];
 

@@ -155,10 +155,12 @@ $(document).ready(function() {
     data = {'tracks':user_tracks.split(','),'pl':pl,'playlist_option':playlist_option}
     $.ajax({
         type : "POST",
-        url : "/api/songs",
+        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/stage/quickmix_validate/songs",
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
+            console.log(result)
+            result = JSON.parse(result['body'])
             buildPlaylist(result.data.songs);
             $('.song-info-loading').hide();
             $('.influencers').removeClass("hidden");
