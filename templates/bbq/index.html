@@ -39,14 +39,51 @@
 
 
     <!-- The overlay -->
-    <div id="spotifyOverlay" class="overlay">
-
-      <!-- Overlay content -->
-      <div class="overlay-content">
-        <img class="spotify-logo" src="{{ url_for('static', filename='img/Spotify_Icon_RGB_Green.png')}}">
-        <h1>Sending you to Spotify to sign in…</h1>
+    <div id="spotifyOverlay">
+      <div class="build-content">
+        <div class="build-content-middle">
+          <div class="build-content-inner">
+            <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>
+                quickmix-symbol
+              </title>
+              <defs>
+                <circle id="path-1" cx="20" cy="20" r="20"/>
+                <circle id="path-3" cx="13" cy="13" r="13"/>
+              </defs>
+              <g fill="none" fill-rule="evenodd">
+                <g id="quickmix-symbol">
+                  <g id="outer-circle" transform="translate(2 2)">
+                    <mask id="mask-2" fill="#fff">
+                      <use xlink:href="#path-1"/>
+                    </mask>
+                    <!-- <circle stroke="#13B183" stroke-width="2" cx="20" cy="20" r="21"/> -->
+                    <g id="outer-circle-layers" mask="url(#mask-2)">
+                      <path id="outer-blue" fill="#06F" d="M-6-6h26v26H-6z"/>
+                      <path id="outer-pink" fill="#FF73FF" d="M-6 20h26v26H-6z"/>
+                      <path id="outer-yellow" fill="#FEDF01" d="M20-6h26v26H20z"/>
+                      <path id="outer-green" fill="#2FE7B1" d="M20 20h26v26H20z"/>
+                    </g>
+                  </g>
+                  <g id="inner-circle" transform="rotate(-180 17.5 17.5)">
+                    <mask id="mask-4" fill="#fff">
+                      <use xlink:href="#path-3"/>
+                    </mask>
+                    <use id="inner-circle-mask" fill="#D8D8D8" xlink:href="#path-3"/>
+                    <g id="inner-circle-layers" mask="url(#mask-4)">
+                      <path id="inner-blue" fill="#06F" d="M-4-4h17v17H-4z"/>
+                      <path id="inner-pink" fill="#FF73FF" d="M-4 13h17v17H-4z"/>
+                      <path id="inner-yellow" fill="#FEDF01" d="M13-4h17v17H13z"/>
+                      <path id="inner-green" fill="#2FE7B1" d="M13 13h17v17H13z"/>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <h1 id="build-message">Sending you to Spotify to sign in…</h1>
+          </div>
+        </div>
       </div>
-
     </div>
 
   	<div class="container-fluid bbq-header">

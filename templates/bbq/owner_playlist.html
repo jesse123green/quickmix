@@ -62,7 +62,7 @@
         <div class="col-xs-12 col-sm-6 playlist-meta">
           <div class="playlist-title">
             <div class="label">TITLE</div>
-            <h2>Playlist Title</h2>
+            <h2>Playlist Title. This is a test of a really long playlist title.</h2>
           </div>
           <!-- <div class="playlist-desc">
             <h3>Your <i>{{type}}</i> playlist has <span id="playlist-meta">26 songs and is 1 hour and 28 minutes</span> long.</h3>
@@ -70,13 +70,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-4 col-sm-push-8">
+        <div class="col-sm-4 col-sm-push-8 collab-section">
 
           <div class="label">MAKE IT COLLABORATIVE</div>
           <p class="collab-text">Share this link with your friends so they can add their own BBQ tracks to this playlist.</p>
-          <input class="collab-url-input" type="text" name="collabUrl" value="URL" readonly></input>
-          <p class="collab-copy-link"><a href="#">Copy Link</a></p>
-
+          <input class="collab-url-input" id="collabLink" type="text" name="collabUrl" value="Hey boo" readonly></input>
+          <p class="collab-copy-link">
+            <a class="collab-link-anchor" data-clipboard-target="#collabLink" href="#">Copy Link</a>
+          </p>
+          <p class="copy-success" style="display:none">
+            Link copied!
+          </p>
         </div>
         <div class="col-sm-7 col-sm-pull-4">
 
@@ -144,6 +148,7 @@
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
     <script src="../static/js/bbq/bbq-playlist.js"></script>
   </body>
 </html>

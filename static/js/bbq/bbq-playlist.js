@@ -18,11 +18,11 @@ function PlaylistViewModel() {
     // Editable data
     self.songs = ko.observableArray();
 
-    
+
     // Operations
     self.addSong = function(trackid,title,artist,coverart,previewURL,uri) {
-      self.songs.push(new Song(trackid,title,artist,coverart,previewURL,uri));     
-    }   
+      self.songs.push(new Song(trackid,title,artist,coverart,previewURL,uri));
+    }
 
     self.pauseAll = function(){
       for (i in self.songs()){
@@ -40,7 +40,7 @@ function PlaylistViewModel() {
       else{
         self.pauseAll();
       }
-    } 
+    }
 }
 
 PVM = new PlaylistViewModel();
@@ -83,13 +83,13 @@ function shuffle(array) {
 function secondsToTime(secs)
 {
     var hours = Math.floor(secs / (60 * 60));
-   
+
     var divisor_for_minutes = secs % (60 * 60);
     var minutes = Math.floor(divisor_for_minutes / 60);
- 
+
     var divisor_for_seconds = divisor_for_minutes % 60;
     var seconds = Math.ceil(divisor_for_seconds);
-   
+
     var obj = {
         "h": hours,
         "m": minutes,
@@ -130,6 +130,20 @@ function selectPlaylistTracks(tracks,length_option){
 
 
 $(document).ready(function() {
+
+  var clipboard = new Clipboard('.collab-link-anchor');
+
+  clipboard.on('success', function(e) {
+      e.clearSelection();
+      $('.copy-success').show()
+      $('.collab-copy-link').hide()
+      setTimeout(reset, 3000);
+      function reset() {
+        $('.copy-success').hide()
+        $('.collab-copy-link').show()
+      }
+  });
+
   var user_tracks = getURLParam("trackids");
   var pl = getURLParam("pl");
   var playlist_option = getURLParam("playlist_option");

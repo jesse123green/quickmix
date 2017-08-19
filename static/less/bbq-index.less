@@ -256,21 +256,6 @@ footer {
 }
 
 
-
-/* The Overlay (background) */
-.overlay {
-    height: 0;
-    width: 100%;
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    background-color: rgb(7,11,19); /* Black fallback color */
-    background-color: rgba(7,11,19,.94); /* Black w/opacity */
-    overflow-x: hidden; /* Disable horizontal scroll */
-    transition: 0.3s;
-}
-
 /* Position the content inside the overlay */
 .overlay-content {
 	position: relative;
@@ -289,6 +274,59 @@ footer {
 		color: white;
     }
 }
+
+#spotifyOverlay {
+	height: 0;
+	width: 100%;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	overflow-x: hidden; /* Disable horizontal scroll */
+	transition: 0.3s;
+}
+
+.build-content {
+	height: 100%;
+	width: 100%;
+	display: table;
+	left: 0;
+	top: 0;
+	background-color: @hangout-light
+}
+
+.build-content-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.build-content-inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+		color: #fff;
+		text-align: center;
+}
+h1#build-message {
+	height: 100px;
+}
+
+body.build #outer-circle-layers {
+    -webkit-animation:spin 2s linear infinite;
+    -moz-animation:spin 2s linear infinite;
+    animation:spin 2s linear infinite;
+		transform-origin: center;
+}
+body.build #inner-circle-layers {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+		transform-origin: center;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
 
 @media only screen and (min-width:768px) {
 	.overlay-content {
