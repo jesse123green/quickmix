@@ -15,7 +15,7 @@ def generateRandomString(N):
 	return ''.join(random.SystemRandom().choice(possible) for _ in range(N))
 
 track_model = gensim.models.Word2Vec.load('static/w2v/model_001bt.w2v')
-category_map = {'chill':['sleep','relax','focus'],'party':['pregame','danceparty','late_night'],'workout':['warm_up','gym','cardio'],'hangout':['dinner','feel_good','bbq']}
+category_map = {'chill':['sleep','relax','focus'],'party':['pregame','danceparty','late_night'],'workout':['warm_up','gym','cardio'],'hangout':['dinner','feel_good','bbq'],'laborday':['chill','feel_good','party']}
 
 def categorizeTracks(tracks,category,ntracks=5):
 	category_results = {}
@@ -170,25 +170,27 @@ def pl():
 		pl_type = 'bogus'
 	return render_template('playlist.html', type=pl_type)
 
-@app.route('/bbq/playlist')
+@app.route('/bbq/build')
 def pl_bbq_owner():
 	pl_type = request.args.get('pl')
+	playlist_option = request.args.get('playlist_option')
 	if pl_type == None:
 		pl_type = 'bogus'
-	return render_template('bbq/owner_playlist.html', type=pl_type)
+	return render_template('bbq/owner_build.html', type=pl_type, pl_option=playlist_option)
 
 @app.route('/bbq/collaborate/<playlist_id>')
 def pl_bbq_collaborate(playlist_id):
 	pl_type = request.args.get('pl')
 	if pl_type == None:
 		pl_type = 'bogus'
-	return render_template('bbq/owner_playlist.html', type=pl_type)
+	return render_template('bbq/collaborate_index.html', type=pl_type)
 
 
 @app.route('/login',methods=['GET','POST'])
 def login():
 	state = generateRandomString(16)
 	pl = request.args.get('pl')
+	pl_option = request.args.get('playlist_option')
 
 	scope = 'user-top-read user-read-email playlist-modify-public playlist-modify-private'
 	params ={'state':state,'scope':scope,'response_type':'code','client_id':app.config['SPOTIFY_CLIENT_ID'],'redirect_uri':app.config['REDIRECT_URI']}
@@ -196,6 +198,9 @@ def login():
 	response = make_response(redirect('https://accounts.spotify.com/authorize?'+urllib.urlencode(params)))
 	response.set_cookie(stateKey, state)
 	response.set_cookie('pl', pl)
+
+	if pl_option != None:
+		response.set_cookie('pl_option', pl_option)
 
 	return response
 
@@ -219,11 +224,12 @@ def callback():
 			access_token = D['access_token']
 			refresh_token = D['refresh_token']
 			pl = request.cookies.get('pl')
+			pl_option = request.cookies.get('pl_option')
 
-			print pl,"hi"
-
-			if pl == "laborday":
-				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
+			# TODO: check if pl == "laborday" once the model recognizes that term
+			# if pl == "laborday" and pl_option != None:
+			if pl_option != None:
+				response = make_response(redirect('/bbq/build?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
 			else:
 				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
 			# session['access_token'] = access_token
