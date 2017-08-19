@@ -4,9 +4,25 @@
     <title>Your Quickmix Playlist</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../static/css/playlist.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,800" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/bbq-playlist.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="../static/img/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../static/img/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../static/img/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../static/img/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../static/img/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../static/img/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../static/img/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../static/img/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../static/img/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../static/img/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/icons/favicon-16x16.png">
+    <link rel="manifest" href="../static/img/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#131D31">
+    <meta name="msapplication-TileImage" content="../static/img/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#131D31">
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -16,10 +32,10 @@
       ga('create', 'UA-80235348-1', 'auto');
       ga('send', 'pageview');
 
-    </script>     
+    </script>
   </head>
 
-  <body class="tune tune-{{type}}">
+  <body class="tune tune-hangout">
 
     <!-- The overlay -->
     <div id="spotifyOverlay" class="overlay">
@@ -32,43 +48,42 @@
 
     </div>
 
-    <!-- Export overlay -->
-    <div id="exportOverlay" class="overlay">
-
-      <!-- Overlay content -->
-      <div class="overlay-content">
-        <img class="spotify-logo" src="{{ url_for('static', filename='img/Spotify_Icon_RGB_Green.png')}}">
-        <h1 id="export-playlist-text">Exporting playlist…</h1>
-      </div>
-
-    </div>
-
     <div class="hat">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
-            <h1 class="pl-title">Here’s your playlist</h1>
+            <div class="quickmix-bbq-logo">Quickmix BBQ</div>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="row options">
-        <div class="col-xs-12 col-sm-6">
-          <div class="playlist-desc">
-            <h3>Your <i>{{type}}</i> playlist has <span id="playlist-meta">26 songs and is 1 hour and 28 minutes</span> long.</h3>
+        <div class="col-xs-12 col-sm-6 playlist-meta">
+          <div class="playlist-title">
+            <div class="label">TITLE</div>
+            <h2>Playlist Title</h2>
           </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 export-header">
-          <button class="export-button">Add Playlist to Spotify</button>
+          <!-- <div class="playlist-desc">
+            <h3>Your <i>{{type}}</i> playlist has <span id="playlist-meta">26 songs and is 1 hour and 28 minutes</span> long.</h3>
+          </div> -->
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-push-8">
 
-      <div class="row options">
-        <div class="col-x-12">
-          <div class="song-info-loading"><img src="../static/img/spinner-{{type}}.gif" width="60" height="60"/></div>
+          <div class="label">MAKE IT COLLABORATIVE</div>
+          <p class="collab-text">Share this link with your friends so they can add their own BBQ tracks to this playlist.</p>
+          <input class="collab-url-input" type="text" name="collabUrl" value="URL" readonly></input>
+          <p class="collab-copy-link"><a href="#">Copy Link</a></p>
+
+        </div>
+        <div class="col-sm-7 col-sm-pull-4">
+
+          <div class="label track-label">TRACKS</div>
+          <div class="song-info-loading"><img src="../static/img/spinner-hangout.gif" width="60" height="60"/></div>
           <div class="influencers hidden">
-            <div class="song-info {{ type }}">
+            <div class="song-info hangout">
 
               <div data-bind="foreach: songs">
                 <div class= "song-container">
@@ -88,26 +103,25 @@
                         </td>
                         <tr>
                           <td>
-                            <div class="preview" data-bind="css: { {{ type }}: isPlaying()}"><div class='arrow-right' data-bind="css: { {{ type }}: isPlaying()}"></div>Play Preview</div>
+                            <div class="preview" data-bind="css: { hangout: isPlaying()}"><div class='arrow-right' data-bind="css: { hangout: isPlaying()}"></div>Play Preview</div>
                           </tr>
                         </td>
                       </table>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
+
         </div>
       </div>
-
 
       <div class="row submit">
         <div class="col-xs-12">
           <div class="button-wrapper">
-            <button class="btn btn-default submit-button {{ type }}" id="export-bottom">Add Playlist to Spotify</button>
+            <button class="btn btn-default submit-button hangout" id="export-bottom">Play on Spotify</button>
             <div class="start-over-wrapper">
-              <a class="start-over link-shadow underline-link .underline-link {{type}}" href="/">Or create a new playlist</a>
+              <a class="start-over link-shadow underline-link .underline-link hangout" href="/">Or create a new playlist</a>
             </div>
           </div>
         </div>
@@ -130,6 +144,6 @@
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-    <script src="../static/js/playlist.js"></script>
+    <script src="../static/js/bbq/bbq-playlist.js"></script>
   </body>
 </html>

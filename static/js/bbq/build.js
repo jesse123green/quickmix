@@ -206,7 +206,7 @@ $(document).ready(function() {
 
   function sendToPlaylist(){
     var pl_option = getURLParam("playlist_option");
-    window.location.href = '/playlist?access_token=' + access_token + "&refresh_token=" + refresh_token + "&pl=" + playlist_type + "&playlist_option=" + pl_option + "&trackids=" + IVM.influencers().join() + "&length_option=length30";
+    window.location.href = '/bbq/playlist?access_token=' + access_token + "&refresh_token=" + refresh_token + "&pl=" + playlist_type + "&playlist_option=" + pl_option + "&trackids=" + IVM.influencers().join() + "&length_option=length30";
     // console.log("Go to: ", '/playlist?access_token=' + access_token + "&refresh_token=" + refresh_token + "&pl=" + playlist_type + "&playlist_option=" + pl_option + "&trackids=" + IVM.influencers().join() + "&length_option=length30")
   }
 

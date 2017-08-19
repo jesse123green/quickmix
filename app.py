@@ -171,7 +171,7 @@ def pl():
 	return render_template('playlist.html', type=pl_type)
 
 @app.route('/bbq/build')
-def pl_bbq_owner():
+def bbq_build_owner():
 	pl_type = request.args.get('pl')
 	playlist_option = request.args.get('playlist_option')
 	if pl_type == None:
@@ -179,11 +179,18 @@ def pl_bbq_owner():
 	return render_template('bbq/owner_build.html', type=pl_type, pl_option=playlist_option)
 
 @app.route('/bbq/collaborate/<playlist_id>')
-def pl_bbq_collaborate(playlist_id):
+def bbq_collaborate(playlist_id):
 	pl_type = request.args.get('pl')
 	if pl_type == None:
 		pl_type = 'bogus'
 	return render_template('bbq/collaborate_index.html', type=pl_type)
+
+@app.route('/bbq/playlist')
+def bbq_playlist_owner():
+	pl_type = request.args.get('pl')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/owner_playlist.html', type=pl_type)
 
 
 @app.route('/login',methods=['GET','POST'])
