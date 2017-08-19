@@ -127,7 +127,7 @@ $(document).ready(function() {
 
   function nextMessage() {
     if (loopCount < 4) {
-      wait = ((Math.random() * 3) + 1.25) * 1000
+      wait = ((Math.random() * 2) + 1.25) * 1000
       setTimeout(nextMessage, wait);
       $('#build-message').html(build_messages[loopCount]);
       loopCount++
@@ -140,18 +140,6 @@ $(document).ready(function() {
     }
   }
 
-  function getSpotifyUserId(){
-    $.ajax({
-        url: 'https://api.spotify.com/v1/me/',
-        headers: {
-          'Authorization': 'Bearer ' + access_token
-        },
-        success: function(response) {
-          userid = response.id
-        }
-    });
-  }
-
   function getInfluencers(time_range,callback){
     _url = 'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range='+time_range
     $.ajax({
@@ -161,6 +149,27 @@ $(document).ready(function() {
         },
         success: function(response) {
           // Top tracks from spotify success
+          callback(response)
+        }
+    });
+  }
+
+  function getUserInfo(callback){
+    
+    $.ajax({
+        url: 'https://api.spotify.com/v1/me/',
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        },
+        success: function(response) {
+          userid = response.id;
+          display_name = response.display_name;
+          if (display_name == null){
+            username = userid;
+          }
+          else{
+            username = display_name;
+          }
           callback(response)
         }
     });
@@ -206,7 +215,7 @@ $(document).ready(function() {
 
   function sendToPlaylist(){
     var pl_option = getURLParam("playlist_option");
-    window.location.href = '/bbq/playlist?access_token=' + access_token + "&refresh_token=" + refresh_token + "&pl=" + playlist_type + "&playlist_option=" + pl_option + "&trackids=" + IVM.influencers().join() + "&length_option=length30";
+    window.location.href = '/bbq/playlist?access_token=' + access_token + "&refresh_token=" + refresh_token + "&pl=" + playlist_type + "&playlist_option=" + pl_option + "&trackids=" + IVM.influencers().join() + "&length_option=length30" + "&username=" + username + "&userid=" + userid;
     // console.log("Go to: ", '/playlist?access_token=' + access_token + "&refresh_token=" + refresh_token + "&pl=" + playlist_type + "&playlist_option=" + pl_option + "&trackids=" + IVM.influencers().join() + "&length_option=length30")
   }
 
@@ -214,6 +223,7 @@ $(document).ready(function() {
   var user_track_data = {};
   var validated_influencers;
   var userid;
+  var username;
   var access_token = getURLParam("access_token");
   var refresh_token = getURLParam("refresh_token");
   var playlist_type = getURLParam("pl");
@@ -243,7 +253,12 @@ $(document).ready(function() {
                 callback(null, results);
               })
           },
-          reduce_songs: ['short_term', 'long_term', 'medium_term', function(callback, results){
+          user_info: function(callback){
+              getUserInfo(function(results){
+                callback(null, results);
+              })
+          },
+          reduce_songs: ['short_term', 'long_term', 'medium_term','user_info', function(callback, results){
               terms = ['short_term','long_term','medium_term']
               for (term in terms){
                 for (i in results[terms[term]].items){
@@ -268,8 +283,6 @@ $(document).ready(function() {
           });
       });
 
-
-      // getSpotifyUserId();
 
 
     } else {

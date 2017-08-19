@@ -15,7 +15,7 @@ def generateRandomString(N):
 	return ''.join(random.SystemRandom().choice(possible) for _ in range(N))
 
 track_model = gensim.models.Word2Vec.load('static/w2v/model_001bt.w2v')
-category_map = {'chill':['sleep','relax','focus'],'party':['pregame','danceparty','late_night'],'workout':['warm_up','gym','cardio'],'hangout':['dinner','feel_good','bbq'],'laborday':['chill','feel_good','party']}
+category_map = {'chill':['sleep','relax','focus'],'party':['pregame','danceparty','late_night'],'workout':['warm_up','gym','cardio'],'hangout':['dinner','feel_good','bbq'],'laborday':['chill','feel_good','pool_party']}
 
 def categorizeTracks(tracks,category,ntracks=5):
 	category_results = {}
@@ -24,7 +24,10 @@ def categorizeTracks(tracks,category,ntracks=5):
 		used_artists = {}
 		track_num = 0
 		for track in tracks:
-			track_score = track_model.similarity('T_'+track['id'],subcat)
+			if category == 'laborday':
+				track_score = track_model.n_similarity(['T_'+track['id']], ['bbq', subcat])
+			else:
+				track_score = track_model.similarity('T_'+track['id'],subcat)
 			if track['artist'] not in used_artists:
 				scores.append({'score':track_score,'id':track['id'],'artist':track['artist']})
 				used_artists[track['artist']] = (track_score,track_num)
@@ -88,7 +91,7 @@ def buildPlaylist(tracks,activity='relax',n_songs=15,top_n_size=15,n_similar_tra
 	sys.stdout.flush()
 	return output
 
-def playlistSongs(tracks,activity='relax'):
+def playlistSongs(tracks,activity='relax',pl='chill'):
 	plist = []
 	n_influencers = len(tracks)
 
@@ -114,7 +117,10 @@ def playlistSongs(tracks,activity='relax'):
 	for track in tracks:
 
 		### Choose top songs closest to track
-		results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
+		if pl == 'laborday':
+			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.n_similarity([w[0]], ['bbq', activity])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
+		else:
+			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]	
 
 		### Order songs by distance to activity and return top_n_size
 		sorted_results = sorted(results, key=itemgetter('activity_score'), reverse=True)
@@ -233,9 +239,10 @@ def callback():
 			pl = request.cookies.get('pl')
 			pl_option = request.cookies.get('pl_option')
 
+			print 'options',pl,pl_option
+
 			# TODO: check if pl == "laborday" once the model recognizes that term
-			# if pl == "laborday" and pl_option != None:
-			if pl_option != None:
+			if pl == "laborday" and pl_option != None:
 				response = make_response(redirect('/bbq/build?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
 			else:
 				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
@@ -271,7 +278,7 @@ def playlist_songs():
 	pl = request.json['pl']
 	activity = category_map[pl][playlist_option]
 	t = time.time()
-	data = playlistSongs(tracks,activity)
+	data = playlistSongs(tracks,activity,pl)
 	# print time.time()-t
 	sys.stdout.flush()
 
