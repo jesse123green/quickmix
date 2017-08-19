@@ -1,0 +1,182 @@
+body {
+  font-family: 'Work Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #2FE7B1;
+  -webkit-font-smoothing: antialiased;
+}
+body.tune-bogus {
+  color: #4C4F58;
+}
+body.tune-bogus .hat {
+  color: #4C4F58;
+  background-color: #4C4F58;
+}
+.hat {
+  width: 100%;
+  height: 100%;
+  height: calc(99%);
+  font-family: "Work Sans", -apple-system, 'BlinkMacSystemFont', 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+}
+.hat h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.hat h2 {
+  font-family: 'Work Sans', serif;
+  text-transform: none;
+  color: #fff;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+h3 {
+  font-family: 'Work Sans', serif;
+  font-size: 16px;
+  line-height: 23px;
+  letter-spacing: 0px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+/* The Overlay (background) */
+.overlay {
+  height: 0;
+  width: 100%;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: #070b13;
+  /* Black fallback color */
+  background-color: rgba(7, 11, 19, 0.94);
+  /* Black w/opacity */
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+}
+.build-content {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: #2FE7B1;
+}
+.build-content-middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+.build-content-inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  color: #fff;
+  text-align: center;
+}
+h1#build-message {
+  height: 100px;
+}
+body.build #outer-circle-layers {
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  transform-origin: center;
+}
+body.build #inner-circle-layers {
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+  transform-origin: center;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes reverse-spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes reverse-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes reverse-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/* Position the content inside the overlay */
+.overlay-content {
+  position: relative;
+  top: 25%;
+  /* 25% from the top */
+  width: 100%;
+  /* 100% width */
+  text-align: center;
+  /* Centered text/links */
+}
+.overlay-content img {
+  width: 66px;
+  height: 66px;
+}
+.overlay-content h1 {
+  width: 275px;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 18px auto;
+  color: white;
+}
+/*
+Media Queries
+*/
+@media only screen and (min-width: 600px) {
+  .options {
+    padding: 40px 0px 50px 0px;
+  }
+  .hat h1 {
+    font-size: 58px;
+    margin-bottom: 20px;
+  }
+  .hat h2 {
+    margin-bottom: 50px;
+    font-size: 35px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  h3 {
+    margin-bottom: 0px;
+  }
+  .overlay-content img {
+    width: 84px;
+    height: 84px;
+  }
+  .overlay-content h1 {
+    width: 540px;
+    font-size: 45px;
+    margin: 29px auto;
+  }
+}
+@media only screen and (min-width: 992px) {
+  h3 {
+    font-family: 'Work Sans', serif;
+    font-size: 20px;
+  }
+}
+
+/*# sourceMappingURL=bbq-build.css.map */
