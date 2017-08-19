@@ -390,15 +390,63 @@ Playlist songs
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    background-color: rgb(7,11,19); /* Black fallback color */
-    background-color: rgba(7,11,19,.94); /* Black w/opacity */
-    overflow-x: hidden; /* Disable horizontal scroll */
+		background-color: @hangout-light;
     transition: 0.3s;
 }
 
-#spotifyOverlay{
+#spotifyOverlay {
 	height: 100%;
+	width: 100%;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	overflow-x: hidden; /* Disable horizontal scroll */
+	transition: 0.3s;
 }
+
+.build-content {
+	height: 100%;
+	width: 100%;
+	display: table;
+	left: 0;
+	top: 0;
+	background-color: @hangout-light
+}
+
+.build-content-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.build-content-inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+		color: #fff;
+		text-align: center;
+}
+h1#build-message {
+	height: 100px;
+}
+
+#outer-circle-layers {
+    -webkit-animation:spin 2s linear infinite;
+    -moz-animation:spin 2s linear infinite;
+    animation:spin 2s linear infinite;
+		transform-origin: center;
+}
+#inner-circle-layers {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+		transform-origin: center;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
 
 #exportOverlay{
 	height: 0%;

@@ -257,13 +257,13 @@ footer a:hover {
 h1#build-message {
   height: 100px;
 }
-body.build #outer-circle-layers {
+body.home #outer-circle-layers {
   -webkit-animation: spin 2s linear infinite;
   -moz-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
   transform-origin: center;
 }
-body.build #inner-circle-layers {
+body.home #inner-circle-layers {
   -webkit-animation: spin 4s linear infinite;
   -moz-animation: spin 4s linear infinite;
   animation: spin 4s linear infinite;

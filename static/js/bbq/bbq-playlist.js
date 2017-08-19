@@ -154,7 +154,6 @@ $(document).ready(function() {
   var userid = getURLParam("userid");
   var category_map = {'chill':{'option1':'Sleep','option2':'Relax','option3':'Focus'},'party':{'option1':'Pre-Game','option2':'Dance Party','option3':'Late Night'},'workout':{'option1':'Warm Up','option2':'Gym','option3':'Cardio'},'hangout':{'option1':'Dinner','option2':'Feel Good','option3':'BBQ'}};
 
-  document.getElementById("spotifyOverlayText").innerHTML = "Building your playlist…";
   if (access_token && pl && length_option && user_tracks && playlist_option) {
 
     data = {'tracks':user_tracks.split(','),'pl':pl,'playlist_option':playlist_option}
