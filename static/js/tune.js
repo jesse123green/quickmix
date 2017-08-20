@@ -148,7 +148,7 @@ $(document).ready(function() {
     // console.log(JSON.stringify(data, null, '\t'))
     $.ajax({
         type : "POST",
-        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/stage/quickmix_validate/validate",
+        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/prod/quickmix_validate/validate",
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {

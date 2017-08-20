@@ -274,11 +274,12 @@ $(document).ready(function() {
     data = {'tracks':user_tracks,'category':playlist_type}
     $.ajax({
         type : "POST",
-        url : "/api/validate",
+        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/prod/quickmix_validate/validate",
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
           // Validation success
+          result = JSON.parse(result['body'])
           validated_influencers = result['data'];
 
           $('.song-info-loading').hide();
@@ -400,11 +401,12 @@ $(document).ready(function() {
     data = {'tracks':IVM.influencers(),'pl':playlist_type,'playlist_option':playlist_option}
     $.ajax({
         type : "POST",
-        url : "/api/songs",
+        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/prod/quickmix_validate/songs",
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
           console.log(result);
+            result = JSON.parse(result['body'])
             buildPlaylist(result.data.songs);
             callback();
             // $('.song-info-loading').hide();
