@@ -114,12 +114,18 @@ function selectPlaylistTracks(tracks,length_option){
   }
   shuffle(tracks);
   selected_tracks = [];
+  selected_tracks_ids = [];
   i = 0;
   while (currentLength < playlistLength){
+    if (selected_tracks_ids.includes(tracks[i].id)){
+      console.log('TRACK SKIPPED DUP')
+      continue
+    }
+    selected_tracks_ids.push(tracks[i].id)
     selected_tracks.push(tracks[i])
     currentLength += tracks[i]['duration_ms'];
     i += 1;
-    if (i == n_tracks) {
+    if (i >= n_tracks) {
       break;
     }
   }

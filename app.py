@@ -5,7 +5,6 @@ import sys,urllib,json,time,re,random,string,math
 import os,base64,requests
 from datetime import date
 from operator import itemgetter
-import gensim
 from models import Playlist,Track
 
 stateKey = 'spotify_auth_state'
@@ -15,7 +14,6 @@ def generateRandomString(N):
 	return ''.join(random.SystemRandom().choice(possible) for _ in range(N))
 
 
-track_model = gensim.models.Word2Vec.load('static/w2v/bbq_002t.w2v')
 
 category_map = {'chill':['sleep','relax','focus'],'party':['pregame','danceparty','late_night'],'workout':['warm_up','gym','cardio'],'hangout':['dinner','feel_good','bbq'],'laborday':['chill','feel_good','pool_party']}
 
