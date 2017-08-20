@@ -180,6 +180,163 @@ footer a {
 footer a:hover {
   color: #fff;
 }
+.playlist-cover {
+  background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #ffffff 84%, #ffffff 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #ffffff 84%, #ffffff 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 84%, #ffffff 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0);
+  /* IE6-9 */
+}
+/*
+Playlist songs
+*/
+.song-info {
+  font-family: "Work Sans", -apple-system, 'BlinkMacSystemFont', 'Source Sans Pro', sans-serif;
+}
+.song-info:hover {
+  cursor: pointer;
+}
+.song-info table {
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.song-info .song-container {
+  margin-bottom: 0px;
+  display: flex;
+  width: 100%;
+}
+.song-info .song-container .inactive-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(131, 137, 147, 0.25);
+}
+.song-info .song-container label.track-checkbox {
+  z-index: 2;
+  margin: 15px;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+}
+.song-info .song-container label.track-checkbox:hover {
+  cursor: pointer;
+}
+.song-info .song-container label.track-checkbox .inner-circle-checked {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin: 3px;
+}
+.song-info .song-container label.track-checkbox .inner-circle-checked img {
+  width: 15px;
+  height: 12px;
+  margin: 10px 7px;
+}
+.song-info .song-container label.track-checkbox .inner-circle-unchecked {
+  border: 2px solid;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  margin: 3px;
+  border-radius: 50%;
+}
+.song-info .song-container .coverart {
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  min-width: 100px;
+  border-bottom: solid 1px #CACCD1;
+  position: relative;
+}
+.song-info .song-container .divider {
+  max-width: 2px;
+  background-color: #4C4F58;
+  border-top: solid 2px;
+  border-bottom: solid 2px;
+}
+.song-info .song-container .song-preview-area {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+.song-info .song-container .song-text {
+  width: 100%;
+  padding: 9px 16px;
+  vertical-align: top;
+  border-bottom: solid 1px #CACCD1;
+  table-layout: fixed;
+  height: 100px;
+}
+.song-info .song-container .song-text h5,
+.song-info .song-container .song-text h6 {
+  margin: 0 0 1px 0;
+  color: #4C4F58;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.song-info .song-container .song-text h6 {
+  font-weight: 400;
+  font-size: 16px;
+}
+.song-info .song-container .song-text h5 {
+  font-weight: 500;
+  font-size: 20px;
+}
+.song-info .song-container .song-text .stricken {
+  text-decoration: line-through;
+}
+.song-info .song-container .preview {
+  display: flex;
+  height: 12px;
+  line-height: 12px;
+  font-size: 12px;
+  padding-left: 0px;
+  margin-top: 16px;
+  color: #838994;
+}
+.song-info .song-container .arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 7px solid #838994;
+  margin-left: 3px;
+  margin-right: 5px;
+}
+.song-info .song-container .arrow-right.chill {
+  border-left: 7px solid #0066FF;
+}
+.song-info .song-container .preview.chill {
+  color: #0066FF;
+}
+.song-info .song-container .arrow-right.party {
+  border-left: 7px solid #FFE001;
+}
+.song-info .song-container .preview.party {
+  color: #FFE001;
+}
+.song-info .song-container .arrow-right.workout {
+  border-left: 7px solid #FF73FF;
+}
+.song-info .song-container .preview.workout {
+  color: #FF73FF;
+}
+.song-info .song-container .arrow-right.hangout {
+  border-left: 7px solid #2FE7B1;
+}
+.song-info .song-container .preview.hangout {
+  color: #2FE7B1;
+}
 @media only screen and (min-width: 600px) {
   header h1 {
     font-size: 46px;

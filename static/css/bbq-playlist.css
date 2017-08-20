@@ -439,14 +439,12 @@ h1#build-message {
   margin: 18px auto;
   color: white;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
   .quickmix-bbq-logo {
     width: 375px;
     height: 72px;
     background-size: 375px;
   }
-}
-@media only screen and (min-width: 768px) {
   .overlay-content img {
     width: 84px;
     height: 84px;
