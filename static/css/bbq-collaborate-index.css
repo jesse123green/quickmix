@@ -1,6 +1,6 @@
 body {
   font-family: 'Work Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #071122;
+  background-color: #fff;
   -webkit-font-smoothing: antialiased;
 }
 .container-fluid {
@@ -79,6 +79,30 @@ header p {
   -o-background-size: cover;
   background-size: cover;
 }
+.cta {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 30px;
+}
+div.label {
+  font-size: 16px;
+  color: #2FE7B1;
+  letter-spacing: -0.5px;
+  padding-left: 0;
+}
+div.track-label {
+  margin-bottom: 15px !important;
+}
+.song-info-loading {
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px;
+}
+.trackscontainer {
+  background: #CACCD1;
+}
 p.solar-eclipse:before {
   position: relative;
   top: 6px;
@@ -103,7 +127,7 @@ p.solar-eclipse:before {
   background-color: #8D8FFF;
 }
 #btn-hangout {
-  color: #13B183;
+  color: #fff;
   background-color: #2FE7B1;
 }
 .no-touchevents a#btn-chill:hover {
@@ -116,17 +140,17 @@ p.solar-eclipse:before {
   color: #3b3fff;
 }
 .no-touchevents a#btn-hangout:hover {
-  color: #0e8361;
+  background-color: #17cc97;
 }
 .btn-mood {
-  width: 100%;
-  border-radius: 0;
-  height: 70px;
+  width: auto;
   font-size: 20px;
   text-transform: uppercase;
   line-height: 70px;
-  padding: 0 20px;
+  padding: 0 30px;
   letter-spacing: 0.75px;
+  margin-bottom: 40px;
+  border-radius: 8px;
   font-family: "Work Sans", -apple-system, 'BlinkMacSystemFont', 'Source Sans Pro', sans-serif;
 }
 .playlist-option {
@@ -157,13 +181,6 @@ footer a:hover {
   color: #fff;
 }
 @media only screen and (min-width: 600px) {
-  .btn-mood {
-    width: auto;
-    margin: 0 auto;
-    font-size: 30px;
-    margin: 4px;
-    border-radius: 8px;
-  }
   header h1 {
     font-size: 46px;
     line-height: 130%;
@@ -296,6 +313,9 @@ body.home #inner-circle-layers {
     margin: 29px auto;
   }
 }
+.addtracks {
+  padding: 10px 0px 60px 0px;
+}
 ul.social-buttons {
   margin-bottom: 0;
 }
@@ -337,4 +357,4 @@ img::-moz-selection {
   background: transparent;
 }
 
-/*# sourceMappingURL=bbq-index.css.map */
+/*# sourceMappingURL=bbq-collaborate-index.css.map */

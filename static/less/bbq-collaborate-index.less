@@ -5,7 +5,7 @@
 
 body {
 	.body-font;
-	background-color: #071122;
+	background-color: #fff;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -102,6 +102,35 @@ header {
   background-size: cover;
 }
 
+.cta {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 30px;
+	padding-top: 30px;
+}
+
+div.label {
+	font-size: 16px;
+	color: @hangout-light;
+	letter-spacing: -0.5px;
+	padding-left: 0;
+}
+div.track-label {
+	// padding-left: 15px;
+	margin-bottom: 15px !important;
+}
+
+.song-info-loading {
+	margin: 0 auto;
+	text-align: center;
+	padding: 40px;
+}
+
+.trackscontainer {
+	background: @gray-light;
+}
+
 p.solar-eclipse:before {
 	position: relative;
   // content: url('../img/bbq/eclipse.png');
@@ -137,7 +166,7 @@ p.solar-eclipse {
 }
 
 #btn-hangout{
-	color: @hangout-dark;
+	color: #fff;
 	background-color: @hangout-light;
 }
 
@@ -151,19 +180,19 @@ p.solar-eclipse {
 	color: darken(#8D8FFF, 16%);
 }
 .no-touchevents a#btn-hangout:hover {
-	color: darken(@hangout-dark, 10%);
+	background-color: darken(@hangout-light, 10%);
 }
 
 
 .btn-mood{
-	width: 100%;
-	border-radius: 0;
-	height: 70px;
+	width: auto;
 	font-size: 20px;
 	text-transform: uppercase;
 	line-height: 70px;
-	padding: 0 20px;
+	padding: 0 30px;
 	letter-spacing: 0.75px;
+	margin-bottom: 40px;
+	border-radius: 8px;
 	.mood-font;
 }
 
@@ -201,13 +230,6 @@ footer {
 
 
 @media only screen and (min-width:600px) {
-	.btn-mood{
-		width: auto;
-		margin: 0 auto;
-		font-size: 30px;
-		margin: 4px;
-		border-radius: 8px;
-	}
 	header {
 		h1{
 			font-size: 46px;
@@ -343,6 +365,9 @@ body.home #inner-circle-layers {
 }
 
 
+.addtracks {
+	padding: 10px 0px 60px 0px;
+}
 
 // Social Buttons
 

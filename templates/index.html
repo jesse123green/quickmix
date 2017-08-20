@@ -5,8 +5,7 @@
     <meta name="description" content="Quickmix makes it easy to create personalized playlists for everyday activities.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=PT+Serif:700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,800" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/index.css">
     <link rel="apple-touch-icon" sizes="57x57" href="../static/img/icons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../static/img/icons/apple-icon-60x60.png">
@@ -50,34 +49,79 @@
 
     </div>
 
-  	<div class="container-fluid">
-      <div id="login">
-    		<header>
-    			<h1>QuickMix!<br>Personalized soundtracks for everyday activities.</h1>
-    		</header>
-        <div class="row">
-          <div class="col-xs-12 col-md-6">
-            <div class="playlist-option">
-              <a href="javascript:openOverlay('/login?pl=chill')" class="btn btn-mood" id="btn-chill"><b>Chill</b></a>
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <div class="playlist-option">
-              <a href="javascript:openOverlay('/login?pl=party')" class="btn btn-mood" id="btn-party"><b>Party</b></a>
-            </div>
+  	<div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="quickmix-logo">Quickmix</div>
+          <p class="subhead">Playlists for right now,<br>made from your favorites.</p>
+          <p class="subhead option-intro">Make your own Quickmix.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="playlist-option">
+            <a href="/bbq" class="btn btn-mood" id="btn-bbq">
+              <div class="bbq-option">
+                BBQ
+              </div>
+            </a>
           </div>
         </div>
-        <div class="row">
-           <div class="col-xs-12 col-md-6">
-            <div class="playlist-option">
-              <a href="javascript:openOverlay('/login?pl=workout')" class="btn btn-mood" id="btn-workout"><b>Workout</b></a>
+        <div class="col-12">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=chill')" class="btn btn-mood" id="btn-chill">Chill</a>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=party')" class="btn btn-mood" id="btn-party">Party</a>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=workout')" class="btn btn-mood" id="btn-workout">Workout</a>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=hangout')" class="btn btn-mood" id="btn-hangout">Hangout</a>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=chill')" class="btn btn-mood" id="btn-chill"><b>Chill</b></a>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=party')" class="btn btn-mood" id="btn-party"><b>Party</b></a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+         <div class="col-xs-12 col-md-6">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=workout')" class="btn btn-mood" id="btn-workout"><b>Workout</b></a>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="playlist-option">
+            <a href="javascript:openOverlay('/login?pl=hangout')" class="btn btn-mood" id="btn-hangout"><b>Hangout</b></a>
+           </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-12">
+          <footer>
+            <div class="container-fluid">
+              <h4>How It Works</h4>
+              <p>Quickmix works by finding songs that are similar to songs that you like and similar to songs on other playlists. It uses data collected from 340 million tracks on over 3 million playlists on Spotify.</p>
+              <h4><a href="https://twitter.com/quickmixio">Follow Quickmix on Twitter</a></h4>
             </div>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <div class="playlist-option">
-              <a href="javascript:openOverlay('/login?pl=hangout')" class="btn btn-mood" id="btn-hangout"><b>Hangout</b></a>
-             </div>
-          </div>
+          </footer>
         </div>
       </div>
   	</div>
