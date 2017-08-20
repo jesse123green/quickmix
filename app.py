@@ -120,7 +120,7 @@ def playlistSongs(tracks,activity='relax',pl='chill'):
 		if pl == 'laborday':
 			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.n_similarity([w[0]], ['bbq', activity])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
 		else:
-			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]	
+			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
 
 		### Order songs by distance to activity and return top_n_size
 		sorted_results = sorted(results, key=itemgetter('activity_score'), reverse=True)
@@ -191,6 +191,13 @@ def bbq_collaborate(playlist_id):
 		pl_type = 'bogus'
 	return render_template('bbq/collaborate_index.html', type=pl_type)
 
+@app.route('/bbq/collaborate')
+def bbq_collaborate_cutoff():
+	pl_type = request.args.get('pl')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/collaborate_index.html', type=pl_type)
+
 @app.route('/bbq/playlist')
 def bbq_playlist_owner():
 	pl_type = request.args.get('pl')
@@ -241,7 +248,6 @@ def callback():
 
 			print 'options',pl,pl_option
 
-			# TODO: check if pl == "laborday" once the model recognizes that term
 			if pl == "laborday" and pl_option != None:
 				response = make_response(redirect('/bbq/build?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
 			else:
