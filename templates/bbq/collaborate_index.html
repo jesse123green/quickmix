@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,800" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/bbq-collaborate-index.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bbq-collaborate-index.css')}}">
     <link rel="apple-touch-icon" sizes="57x57" href="../static/img/icons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../static/img/icons/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="../static/img/icons/apple-icon-72x72.png">
@@ -98,66 +98,33 @@
   	<div class="container-fluid bbq-header">
     		<header>
     			<div class="quickmix-bbq-logo">Quickmix BBQ</div>
-          <h2>Add your top barbecue tracks to Ason16&rsquo;s Spotify playlist.</h2>
+          <!-- <h2 id="add-tracks-cta">Add your top barbecue tracks.</h2> -->
+          <h2 id="add-tracks-cta">Add your top barbecue tracks to {{uid}}'s Spotify playlist.</h2>
           <div class="playlist-option">
               <div class="button-wrapper">
-                <a href="javascript:openOverlay('/login?pl=laborday')" class="btn btn-mood" id="btn-hangout"><b>Add Your Tracks</b></a>
+                <a href="javascript:openOverlay('/login?pl=laborday?pid={{pid}}')" class="btn btn-mood" id="btn-hangout"><b>Add Your Tracks</b></a>
               </div>
           </div>
     		</header>
     </div>
     <footer>
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-6">
-            <div class="label track-label">TRACKS</div>
-            <div class="song-info-loading"><img src="../static/img/spinner-hangout.gif" width="60" height="60"/></div>
-            <div class="influencers hidden">
-              <div class="song-info hangout">
-                <div class="playlist-cover">
-                  <!-- <div data-bind="foreach: songs">
-                    <div class= "song-container">
-                      <div class="coverart" data-bind="style: { backgroundImage: 'url(\'' + coverart + '\')' }">
-                      </div>
-                      <div class="song-preview-area" data-bind="click: $root.playSong">
-                          <table class="song-text">
-                            <tr>
-                              <td>
-                                <h6 data-bind="text: title"></h6>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <h5 data-bind="text: artist"></h5>
-                              </td>
-                            </tr>
-                          </table>
-                      </div>
-                    </div>
-                  </div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="cta">
-          <div class="playlist-option">
-              <div class="button-wrapper">
-                <a href="javascript:openOverlay('/login?pl=laborday')" class="btn btn-mood" id="btn-hangout"><b>Add Your Tracks</b></a>
-              </div>
-          </div>
-        </div>
+        <h4>How It Works</h4>
+        <p>Quickmix BBQ works by finding songs that are similar to songs that you like and similar to songs on other BBQ playlists. It uses data collected from 340 million tracks on over 3 million playlists on Spotify.</p>
+        <h4><a href="https://twitter.com/quickmixio">Follow us on Twitter</a></h4>
+        <p class="solar-eclipse">Made while waiting for the solar eclipse in Charlotte, NC</p>
   	  </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/1.5.2/async.min.js"></script>
     <script>
       function openOverlay(URL) {
         document.getElementById("spotifyOverlay").style.height = "100%";
         setTimeout( function() { window.location = URL }, 1200 );
       }
     </script>
-    <script src="../static/js/modernizr.js"></script>
-    <script src="../static/js/bbq/collaborate.js"></script>
+    <script src="{{ url_for('static', filename='js/modernizr.js')}}"></script>
   </body>
 </html>

@@ -75,6 +75,15 @@ def bbq_collaborate(playlist_id):
 		pl_type = 'bogus'
 	return render_template('bbq/collaborate_index.html', type=pl_type)
 
+@app.route('/bbq/collaborate/<userid>/<playlist_id>')
+def bbq_collaborate_clean(userid, playlist_id):
+	print userid, playlist_id
+	# pl_type = request.args.get('pl')
+	pl_type = 'chill'
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/collaborate_index.html', type=pl_type, uid=userid, pid=playlist_id)
+
 @app.route('/bbq/collaborate')
 def bbq_collaborate_cutoff():
 	pl_type = request.args.get('pl')

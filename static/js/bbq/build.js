@@ -460,7 +460,7 @@ $(document).ready(function() {
 
         console.log('SET COLLAB')
         //Set Collab URL
-        $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/"+playlist_id);
+        $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/" + userid + "/" + playlist_id);
         playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
 
 
