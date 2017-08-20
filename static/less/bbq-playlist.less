@@ -74,17 +74,15 @@ body.tune-bogus {
 
 .quickmix-bbq-logo {
   display: block;
-  width: 375px;
-	height: 72px;
+  width: 300px;
+	height: 57px;
   background-image: url('../img/bbq/quickmix-bbq-playlist-logo.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 375px;
+  background-size: 300px;
   font-size: 0;
-	// margin: 0 auto;
 	margin: 8px 0;
 }
-
 
 div.playlist-title h2 {
 	color: @gray-dark;
@@ -473,6 +471,14 @@ h1#build-message {
 		margin: 18px auto;
 		color: white;
     }
+}
+
+@media only screen and (min-width: 600px) {
+	.quickmix-bbq-logo {
+		width: 375px;
+		height: 72px;
+		background-size: 375px;
+	}
 }
 
 @media only screen and (min-width:768px) {

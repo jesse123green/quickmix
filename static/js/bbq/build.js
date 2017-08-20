@@ -187,7 +187,7 @@ $(document).ready(function() {
   function nextMessage() {
     if (loopCount < 4) {
       wait = ((Math.random() * 2) + 1.25) * 1000
-      
+
       setTimeout(nextMessage, wait);
       $('#spotifyOverlayText').html(build_messages[loopCount]);
       loopCount++
@@ -210,7 +210,7 @@ $(document).ready(function() {
   }
 
   function getUserInfo(callback){
-    
+
     $.ajax({
         url: 'https://api.spotify.com/v1/me/',
         headers: {
@@ -357,7 +357,7 @@ $(document).ready(function() {
 
 
   function generateQuickmixPlaylist(callback){
-    
+
     console.log('influencers')
     data = {'tracks':IVM.influencers(),'pl':playlist_type,'playlist_option':playlist_option}
     $.ajax({
@@ -417,7 +417,7 @@ $(document).ready(function() {
 
         console.log('SET COLLAB')
         //Set Collab URL
-        $('#collabLink').val("https://www.quickmix.io/bbq/collaborate/"+playlist_id);
+        $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/"+playlist_id);
         playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
 
 
@@ -503,7 +503,7 @@ $(document).ready(function() {
                   loadInfluencers(function() {
                     // console.log('hello ivm')
                     // console.log(IVM.influencers());
-                    
+
                     callback(null);
                   });
               })
