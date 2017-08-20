@@ -51,15 +51,6 @@ a:active,
 a.active {
   color: #05070c;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Work Sans', serif;
-  font-weight: 700;
-}
 .img-centered {
   margin: 0 auto;
 }
@@ -244,6 +235,87 @@ img::selection {
 }
 img::-moz-selection {
   background: transparent;
+}
+/* The Overlay (background) */
+.overlay {
+  height: 0;
+  width: 100%;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: #2FE7B1;
+  transition: 0.3s;
+}
+#spotifyOverlay {
+  width: 100%;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  transition: 0.3s;
+}
+h1#spotifyOverlayText {
+  height: 100px;
+}
+.build-content {
+  height: 100%;
+  width: 100%;
+  display: table;
+  left: 0;
+  top: 0;
+  background-color: #2FE7B1;
+}
+.build-content-middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+.build-content-inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  color: #fff;
+  text-align: center;
+}
+h1#build-message {
+  height: 100px;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+#outer-circle-layers {
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  transform-origin: center;
+}
+#inner-circle-layers {
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+  transform-origin: center;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

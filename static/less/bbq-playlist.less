@@ -3,11 +3,6 @@
 
 // Global Components
 
-// h1, h2, h3, h4, h5, h6 {
-// 	font-weight: 700;
-// 	text-rendering: optimizeLegibility;
-// }
-
 body {
 	.body-font;
 	background-color: #fff;
@@ -74,17 +69,15 @@ body.tune-bogus {
 
 .quickmix-bbq-logo {
   display: block;
-  width: 375px;
-	height: 72px;
+  width: 300px;
+	height: 57px;
   background-image: url('../img/bbq/quickmix-bbq-playlist-logo.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 375px;
+  background-size: 300px;
   font-size: 0;
-	// margin: 0 auto;
 	margin: 8px 0;
 }
-
 
 div.playlist-title h2 {
 	color: @gray-dark;
@@ -405,6 +398,10 @@ Playlist songs
 	transition: 0.3s;
 }
 
+h1#spotifyOverlayText {
+	height: 100px;
+}
+
 .build-content {
 	height: 100%;
 	width: 100%;
@@ -472,6 +469,11 @@ h1#build-message {
 }
 
 @media only screen and (min-width:768px) {
+	.quickmix-bbq-logo {
+		width: 375px;
+		height: 72px;
+		background-size: 375px;
+	}
 	.overlay-content {
 		img {
 			width: 84px;
