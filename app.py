@@ -243,7 +243,7 @@ def callback():
 
 			# TODO: check if pl == "laborday" once the model recognizes that term
 			if pl == "laborday" and pl_option != None:
-				response = make_response(redirect('/bbq/build?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
+				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
 			else:
 				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
 			# session['access_token'] = access_token
