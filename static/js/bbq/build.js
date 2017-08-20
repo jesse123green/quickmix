@@ -174,25 +174,63 @@ $(document).ready(function() {
         $('.collab-copy-link').show()
       }
   });
+  
 
-  build_messages = [
-    "Checking your taste preferences",
-    "Compiling the best BBQ tracks for you",
-    "Building the playlist",
-    "Adding it to your Spotify account"
-  ]
-  var loopCount = 0
-  nextMessage();
-
-  function nextMessage() {
+  function nextMessages(callback) {
     if (loopCount < 4) {
+      console.log(build_messages[loopCount]);
       wait = ((Math.random() * 2) + 1.25) * 1000
       
       setTimeout(nextMessage, wait);
       $('#spotifyOverlayText').html(build_messages[loopCount]);
       loopCount++
+      callback()
 
     }
+    else{
+      callback()
+    }
+  }
+
+  function changeMessage(message,callback){
+    $('#spotifyOverlayText').html(message);
+    callback()
+  }
+
+  function nextMessage(nm_callback) {
+    build_messages = [
+      "Checking your taste preferences",
+      "Compiling the best BBQ tracks for you",
+      "Building the playlist",
+      "Adding it to your Spotify account"
+    ]
+
+    completeCount = 0
+    total_wait = 0
+    for (loopCount = 0; loopCount < 4; loopCount++) {
+      
+      wait = ((Math.random() * 2) + 1.25) * 1000
+      total_wait += wait
+      
+      this_message = build_messages[loopCount];
+      
+
+      (function(this_message) { // Wrapper function to preserve this_message
+        setTimeout(function(){
+            changeMessage(this_message,function(){
+              completeCount++;
+              if (completeCount == 4){
+                wait = ((Math.random() * 2) + 1.25) * 1000
+                console.log('DONE FINALLY')
+                setTimeout(nm_callback, wait);
+              }
+            })
+          },
+        total_wait);
+      })(this_message);
+
+    }
+    
   }
 
   function getInfluencers(time_range,callback){
@@ -465,6 +503,12 @@ $(document).ready(function() {
 
       /// Call Spotify api in parallel for top songs; reduce, validate, and load songs in view
       async.auto({
+          load_messages: function(callback){
+              nextMessage(function(){
+                console.log('LOAD MESSAGES DONE')
+                callback()
+              });
+          },
           short_term: function(callback){
               getInfluencers('short_term',function(results){
                 callback(null, results);
@@ -520,8 +564,14 @@ $(document).ready(function() {
                 callback(null);
               })
           }],
+          remove_overlay: ['export_playlist','load_messages', function(callback, results){
+              console.log('remove_overlay')
+              removeOverlay(function(){
+                callback(null);
+              })
+          }],
       }, function(err, results) {
-        removeOverlay();
+        
           // console.log('err = ', err);
       });
 
@@ -540,8 +590,9 @@ $(document).ready(function() {
 
 ////////////////////////////////////////////////////
 
-function removeOverlay(URL) {
+function removeOverlay(callback) {
   document.getElementById("spotifyOverlay").style.height = "0%";
+  callback()
 }
 
 function shOverlay(URL) {
