@@ -1,0 +1,422 @@
+@import "bbq-variables.less";
+@import "bbq-mixins.less";
+
+// Global Components
+
+body {
+	.body-font;
+	background-color: #fff;
+	-webkit-font-smoothing: antialiased;
+}
+
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.text-muted {
+	color: @gray;
+}
+
+
+p {
+	font-size: 14px;
+	line-height: 1.3;
+}
+
+p.large {
+	font-size: 16px;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a.active {
+	outline: none;
+}
+
+a:hover,
+a:focus,
+a:active,
+a.active {
+	color: darken(@background, 10%);
+}
+
+// h1, h2, h3, h4, h5, h6 {
+// 	.heading-font;
+// 	font-weight: 700;
+// }
+
+.quickmix-bbq-logo {
+  display: block;
+  width: 300px;
+	height: 57px;
+  background-image: url('../img/bbq/quickmix-bbq-logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 300px;
+  font-size: 0;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.img-centered {
+	margin: 0 auto;
+}
+
+.col-md-6{
+	padding: 0;
+}
+
+header {
+	text-align: center;
+	color: white;
+	h1{
+		font-size: 26px;
+		line-height: 127%;
+	    margin: 60px auto 50px auto;
+    	max-width: 320px;
+	}
+	h2{
+		font-size: 32px;
+		font-weight: 500;
+		line-height: 130%;
+	  margin: 60px auto 50px auto;
+    max-width: 480px;
+	}
+	p {
+		font-size: 24px;
+		font-weight: 500;
+		line-height: 130%;
+	  margin: 60px auto 30px auto;
+    max-width: 480px;
+	}
+}
+
+.bbq-header {
+	background: url('../img/bbq/bbq-header-bg.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.cta {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 30px;
+	padding-top: 30px;
+}
+
+div.label {
+	font-size: 16px;
+	color: @hangout-light;
+	letter-spacing: -0.5px;
+	padding-left: 0;
+}
+div.track-label {
+	// padding-left: 15px;
+	margin-bottom: 15px !important;
+}
+
+.song-info-loading {
+	margin: 0 auto;
+	text-align: center;
+	padding: 40px;
+}
+
+.trackscontainer {
+	background: @gray-light;
+}
+
+p.solar-eclipse:before {
+	position: relative;
+  // content: url('../img/bbq/eclipse.png');
+	// width: 19px;
+	// height: 19px;
+	top: 6px;
+	left: -5px;
+	background-image: url('../img/bbq/eclipse.png');
+	background-size: 24px 24px;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	content:"";
+}
+
+p.solar-eclipse {
+	// padding-left: 30px;
+}
+
+#btn-chill{
+	color: @chill-dark;
+	background-color: @chill-light;
+}
+
+#btn-party{
+	color: @party-dark;
+	background-color: @party-light;
+}
+
+#btn-feel-good{
+	color: darken(#8D8FFF, 10%);
+	background-color: #8D8FFF;
+}
+
+#btn-hangout{
+	color: #fff;
+	background-color: @hangout-light;
+}
+
+.no-touchevents a#btn-chill:hover {
+	color: darken(@chill-dark, 10%);
+}
+.no-touchevents a#btn-party:hover {
+	color: darken(@party-dark, 10%);
+}
+.no-touchevents a#btn-feel-good:hover {
+	color: darken(#8D8FFF, 16%);
+}
+.no-touchevents a#btn-hangout:hover {
+	background-color: darken(@hangout-light, 10%);
+}
+
+
+.btn-mood{
+	width: auto;
+	font-size: 20px;
+	text-transform: uppercase;
+	line-height: 70px;
+	padding: 0 30px;
+	letter-spacing: 0.75px;
+	margin-bottom: 40px;
+	border-radius: 8px;
+	.mood-font;
+}
+
+.playlist-option{
+	width:100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+footer {
+	max-width: 500px;
+	color: #FFF;
+  margin: 40px auto 50px auto;
+
+
+	ul {
+		list-style: none;
+		margin: 5px 0;
+		padding: 0;
+	}
+	h4 {
+		padding-top: 20px;
+	}
+	a {
+		font-size: 16px;
+		line-height: 1.3;
+		color: #fff;
+		font-weight: 500;
+	}
+	a:hover {
+		color: #fff;
+	}
+
+}
+
+
+@media only screen and (min-width:600px) {
+	header {
+		h1{
+			font-size: 46px;
+			line-height: 130%;
+		    margin: 60px auto 80px auto;
+	    	max-width: 630px;
+		}
+	}
+	.bbq-buttons {
+		margin: 0 auto;
+		text-align: center;
+		margin-bottom: 50px;
+	}
+	.playlist-option {
+		width: auto;
+		margin: auto;
+		display: inline-block;
+	}
+	.quickmix-bbq-logo {
+	  display: block;
+	  width: 375px;
+		height: 72px;
+	  background-image: url('../img/bbq/quickmix-bbq-logo.png');
+	  background-repeat: no-repeat;
+	  background-position: center;
+	  background-size: 375px;
+	  font-size: 0;
+		margin: 0 auto;
+		margin-top: 30px;
+	}
+
+}
+
+@media only screen and (min-width:992px) {
+}
+
+@media only screen and (min-width:1440px) {
+	header {
+		h1{
+			font-size: 70px;
+			line-height: 129%;
+		    margin: 100px auto 150px auto;
+	    	max-width: 950px;
+		}
+	}
+}
+
+
+/* Position the content inside the overlay */
+.overlay-content {
+	position: relative;
+	top: 25%; /* 25% from the top */
+	width: 100%; /* 100% width */
+	text-align: center; /* Centered text/links */
+	img {
+		width: 66px;
+		height: 66px;
+	}
+	h1 {
+		width: 275px;
+		font-size: 26px;
+		font-weight: 700;
+		margin: 18px auto;
+		color: white;
+    }
+}
+
+#spotifyOverlay {
+	height: 0;
+	width: 100%;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	overflow-x: hidden; /* Disable horizontal scroll */
+	transition: 0.3s;
+}
+
+.build-content {
+	height: 100%;
+	width: 100%;
+	display: table;
+	left: 0;
+	top: 0;
+	background-color: @hangout-light
+}
+
+.build-content-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.build-content-inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+		color: #fff;
+		text-align: center;
+}
+h1#build-message {
+	height: 100px;
+}
+
+body.home #outer-circle-layers {
+    -webkit-animation:spin 2s linear infinite;
+    -moz-animation:spin 2s linear infinite;
+    animation:spin 2s linear infinite;
+		transform-origin: center;
+}
+body.home #inner-circle-layers {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+		transform-origin: center;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+@media only screen and (min-width:768px) {
+	.overlay-content {
+		img {
+			width: 84px;
+			height: 84px;
+		}
+		h1 {
+			width: 540px;
+			font-size: 45px;
+			margin: 29px auto;
+	    }
+	}
+}
+
+
+.addtracks {
+	padding: 10px 0px 60px 0px;
+}
+
+// Social Buttons
+
+ul.social-buttons {
+	margin-bottom: 0;
+	li {
+		a {
+			display: block;
+			background-color: black;
+			height: 40px;
+			width: 40px;
+			border-radius: 100%;
+			font-size: 20px;
+			line-height: 40px;
+			color: white;
+			outline: none;
+	        -webkit-transition: all 0.3s;
+	        -moz-transition: all 0.3s;
+	        transition: all 0.3s;
+	        &:hover,
+	        &:focus,
+	        &:active {
+				background-color: blue;
+	        }
+		}
+	}
+}
+
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn:active:focus {
+	outline: none;
+}
+
+// Highlight Color Customization
+
+::-moz-selection {
+    text-shadow: none;
+}
+
+::selection {
+    text-shadow: none;
+}
+
+img::selection {
+    background: transparent;
+}
+
+img::-moz-selection {
+    background: transparent;
+}

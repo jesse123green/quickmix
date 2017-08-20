@@ -14,7 +14,9 @@ def generateRandomString(N):
 	possible = string.ascii_uppercase + string.digits + string.ascii_lowercase
 	return ''.join(random.SystemRandom().choice(possible) for _ in range(N))
 
-track_model = gensim.models.Word2Vec.load('static/w2v/model_001bt.w2v')
+
+track_model = gensim.models.Word2Vec.load('static/w2v/bbq_002t.w2v')
+
 category_map = {'chill':['sleep','relax','focus'],'party':['pregame','danceparty','late_night'],'workout':['warm_up','gym','cardio'],'hangout':['dinner','feel_good','bbq'],'laborday':['chill','feel_good','pool_party']}
 
 def categorizeTracks(tracks,category,ntracks=5):
@@ -78,7 +80,7 @@ def buildPlaylist(tracks,activity='relax',n_songs=15,top_n_size=15,n_similar_tra
 
 		### Choose top 100 songs closes to track
 		results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
-		
+
 		### Order songs by distance to activity and return top_n_size
 		sorted_results = sorted(results, key=itemgetter('activity_score'), reverse=True)
 		# print [x['activity_score'] for x in sorted_results]
@@ -120,7 +122,7 @@ def playlistSongs(tracks,activity='relax',pl='chill'):
 		if pl == 'laborday':
 			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.n_similarity([w[0]], ['bbq', activity])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
 		else:
-			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]	
+			results = [{'id':w[0][2:],'song_score':w[1],'influencer':track,'activity_score':track_model.similarity(activity, w[0])} for w in track_model.most_similar(positive=['T_'+track],topn=n_similar_tracks) if (re.match('T_',w[0]))]
 
 		### Order songs by distance to activity and return top_n_size
 		sorted_results = sorted(results, key=itemgetter('activity_score'), reverse=True)
@@ -145,6 +147,10 @@ basic_auth = BasicAuth(app)
 def index():
 	return render_template('index.html')
 
+@app.route('/bbq')
+def bbq_index():
+	return render_template('bbq/index.html')
+
 @app.route('/tune')
 def tune():
 	pl_type = request.args.get('pl');
@@ -157,6 +163,8 @@ def tune():
 		tuners = ["Warm Up","Gym","Cardio"];
 	elif pl_type == 'hangout':
 		tuners = ["Dinner","Feel Good","BBQ"];
+	elif pl_type == 'laborday':
+		tuners = ["Chill","Feel Good","Party"];
 	else:
 		tuners = ["","",""];
 		pl_type = "bogus"
@@ -170,10 +178,41 @@ def pl():
 		pl_type = 'bogus'
 	return render_template('playlist.html', type=pl_type)
 
+@app.route('/bbq/build')
+def bbq_build_owner():
+	pl_type = request.args.get('pl')
+	playlist_option = request.args.get('playlist_option')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/owner_build.html', type=pl_type, pl_option=playlist_option)
+
+@app.route('/bbq/collaborate/<playlist_id>')
+def bbq_collaborate(playlist_id):
+	pl_type = request.args.get('pl')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/collaborate_index.html', type=pl_type)
+
+@app.route('/bbq/collaborate')
+def bbq_collaborate_cutoff():
+	pl_type = request.args.get('pl')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/collaborate_index.html', type=pl_type)
+
+@app.route('/bbq/playlist')
+def bbq_playlist_owner():
+	pl_type = request.args.get('pl')
+	if pl_type == None:
+		pl_type = 'bogus'
+	return render_template('bbq/owner_playlist.html', type=pl_type)
+
+
 @app.route('/login',methods=['GET','POST'])
 def login():
 	state = generateRandomString(16)
 	pl = request.args.get('pl')
+	pl_option = request.args.get('playlist_option')
 
 	scope = 'user-top-read user-read-email playlist-modify-public playlist-modify-private'
 	params ={'state':state,'scope':scope,'response_type':'code','client_id':app.config['SPOTIFY_CLIENT_ID'],'redirect_uri':app.config['REDIRECT_URI']}
@@ -181,6 +220,9 @@ def login():
 	response = make_response(redirect('https://accounts.spotify.com/authorize?'+urllib.urlencode(params)))
 	response.set_cookie(stateKey, state)
 	response.set_cookie('pl', pl)
+
+	if pl_option != None:
+		response.set_cookie('pl_option', pl_option)
 
 	return response
 
@@ -204,9 +246,15 @@ def callback():
 			access_token = D['access_token']
 			refresh_token = D['refresh_token']
 			pl = request.cookies.get('pl')
+			pl_option = request.cookies.get('pl_option')
 
+			print 'options',pl,pl_option
+
+			if pl == "laborday" and pl_option != None:
+				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
+			else:
+				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
 			# session['access_token'] = access_token
-			response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
 			response.set_cookie(stateKey, '', expires=0)
 
 			return response

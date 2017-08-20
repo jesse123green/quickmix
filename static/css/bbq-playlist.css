@@ -1,0 +1,568 @@
+body {
+  font-family: 'Work Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #fff;
+  color: #4C4F58;
+  -webkit-font-smoothing: antialiased;
+}
+body.tune-chill {
+  color: #0066FF;
+}
+body.tune-chill .hat {
+  color: #0000FE;
+  background-color: #0066FF;
+}
+body.tune-workout {
+  color: #FF73FF;
+}
+body.tune-workout .hat {
+  color: #E900FF;
+  background-color: #FF73FF;
+}
+body.tune-hangout {
+  color: #13B183;
+}
+body.tune-hangout .hat {
+  color: #13B183;
+  background-color: #2FE7B1;
+}
+body.tune-party {
+  color: #FF9201;
+}
+body.tune-party .hat {
+  color: #FF9201;
+  background-color: #FFE001;
+}
+body.tune-bogus {
+  color: #4C4F58;
+}
+body.tune-bogus .hat {
+  color: #4C4F58;
+  background-color: #4C4F58;
+}
+.hat {
+  width: 100%;
+  height: 100%;
+  height: calc(99%);
+  font-family: "Work Sans", -apple-system, 'BlinkMacSystemFont', 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+}
+.hat h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.hat h2 {
+  font-family: 'Work Sans', serif;
+  text-transform: none;
+  color: #fff;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+.quickmix-bbq-logo {
+  display: block;
+  width: 375px;
+  height: 72px;
+  background-image: url('../img/bbq/quickmix-bbq-playlist-logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 375px;
+  font-size: 0;
+  margin: 8px 0;
+}
+div.playlist-title h2 {
+  color: #4C4F58;
+  margin-top: 0px;
+}
+div.label {
+  font-size: 16px;
+  color: #2FE7B1;
+  letter-spacing: -0.5px;
+  padding-left: 0;
+}
+div.track-label {
+  margin-bottom: 15px !important;
+}
+.influencers {
+  margin-top: 10px;
+}
+h3 {
+  font-family: 'Work Sans', serif;
+  font-size: 16px;
+  line-height: 23px;
+  letter-spacing: 0px;
+}
+hr {
+  border-color: #CACCD1;
+  margin-bottom: 0px;
+}
+.underline-link {
+  text-decoration: none;
+  background-position: 0 88%;
+  background-repeat: repeat-x;
+  background-size: 100% .20rem;
+}
+.underline-link:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+.underline-link.chill,
+.underline-link.chill:hover {
+  background-image: -webkit-linear-gradient(top, transparent 50%, #0066ff 100%);
+  background-image: linear-gradient(to bottom, transparent 50%, #0066ff 100%);
+}
+.underline-link.party,
+.underline-link.party:hover {
+  background-image: -webkit-linear-gradient(top, transparent 50%, #ffe001 100%);
+  background-image: linear-gradient(to bottom, transparent 50%, #ffe001 100%);
+}
+.underline-link.workout,
+.underline-link.workout:hover {
+  background-image: -webkit-linear-gradient(top, transparent 50%, #ff73ff 100%);
+  background-image: linear-gradient(to bottom, transparent 50%, #ff73ff 100%);
+}
+.underline-link.hangout,
+.underline-link.hangout:hover {
+  background-image: -webkit-linear-gradient(top, transparent 50%, #2fe7b1 100%);
+  background-image: linear-gradient(to bottom, transparent 50%, #2fe7b1 100%);
+}
+.link-shadow {
+  text-shadow: 0.35rem 0 white, 0.4rem 0 white, -0.35rem 0 white, -0.4rem 0 white;
+}
+.song-info-loading {
+  padding-top: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+/*
+Header section
+*/
+.pl-title {
+  height: 134px;
+  margin: 0;
+}
+.collab-text {
+  color: #4C4F58;
+  font-size: 16px;
+  padding: 10px 0;
+  max-width: 360px;
+}
+.collab-url-input {
+  width: 100%;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #2FE7B1;
+  background: #FAFAFA;
+  font-size: 16px;
+  color: #4C4F58;
+  letter-spacing: -0.3px;
+  max-width: 400px;
+}
+.collab-copy-link a,
+.copy-success {
+  display: block;
+  font-size: 15px;
+  color: #2FE7B1;
+  text-decoration: none;
+  margin: 8px 0;
+}
+.copy-success {
+  color: #FF9201;
+}
+.collab-copy-link a:hover {
+  text-decoration: underline;
+  color: #17cc97;
+}
+.playlist-desc {
+  margin-top: 50px;
+}
+.playlist-desc h3 {
+  font-family: 'Work Sans', serif;
+  margin-top: 0px;
+  font-size: 20px;
+}
+.hat h1 {
+  font-size: 25px;
+  margin-bottom: 0px;
+  font-weight: 900;
+  line-height: 150px;
+}
+.export-header {
+  text-align: center;
+  margin: 40px 0 50px 0;
+}
+/*
+Playlist songs
+*/
+.song-info {
+  font-family: "Work Sans", -apple-system, 'BlinkMacSystemFont', 'Source Sans Pro', sans-serif;
+}
+.song-info:hover {
+  cursor: pointer;
+}
+.song-info table {
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.song-info .song-container {
+  margin-bottom: 0px;
+  display: flex;
+  width: 100%;
+}
+.song-info .song-container .inactive-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(131, 137, 147, 0.25);
+}
+.song-info .song-container label.track-checkbox {
+  z-index: 2;
+  margin: 15px;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+}
+.song-info .song-container label.track-checkbox:hover {
+  cursor: pointer;
+}
+.song-info .song-container label.track-checkbox .inner-circle-checked {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin: 3px;
+}
+.song-info .song-container label.track-checkbox .inner-circle-checked img {
+  width: 15px;
+  height: 12px;
+  margin: 10px 7px;
+}
+.song-info .song-container label.track-checkbox .inner-circle-unchecked {
+  border: 2px solid;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  margin: 3px;
+  border-radius: 50%;
+}
+.song-info .song-container .coverart {
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  min-width: 100px;
+  border-bottom: solid 1px #CACCD1;
+  position: relative;
+}
+.song-info .song-container .divider {
+  max-width: 2px;
+  background-color: #4C4F58;
+  border-top: solid 2px;
+  border-bottom: solid 2px;
+}
+.song-info .song-container .song-preview-area {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+.song-info .song-container .song-text {
+  width: 100%;
+  padding: 9px 16px;
+  vertical-align: top;
+  border-bottom: solid 1px #CACCD1;
+  table-layout: fixed;
+  height: 100px;
+}
+.song-info .song-container .song-text h5,
+.song-info .song-container .song-text h6 {
+  margin: 0 0 1px 0;
+  color: #4C4F58;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.song-info .song-container .song-text h6 {
+  font-weight: 400;
+  font-size: 16px;
+}
+.song-info .song-container .song-text h5 {
+  font-weight: 500;
+  font-size: 20px;
+}
+.song-info .song-container .song-text .stricken {
+  text-decoration: line-through;
+}
+.song-info .song-container .preview {
+  display: flex;
+  height: 12px;
+  line-height: 12px;
+  font-size: 12px;
+  padding-left: 0px;
+  margin-top: 16px;
+  color: #838994;
+}
+.song-info .song-container .arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 7px solid #838994;
+  margin-left: 3px;
+  margin-right: 5px;
+}
+.song-info .song-container .arrow-right.chill {
+  border-left: 7px solid #0066FF;
+}
+.song-info .song-container .preview.chill {
+  color: #0066FF;
+}
+.song-info .song-container .arrow-right.party {
+  border-left: 7px solid #FFE001;
+}
+.song-info .song-container .preview.party {
+  color: #FFE001;
+}
+.song-info .song-container .arrow-right.workout {
+  border-left: 7px solid #FF73FF;
+}
+.song-info .song-container .preview.workout {
+  color: #FF73FF;
+}
+.song-info .song-container .arrow-right.hangout {
+  border-left: 7px solid #2FE7B1;
+}
+.song-info .song-container .preview.hangout {
+  color: #2FE7B1;
+}
+/* The Overlay (background) */
+.overlay {
+  width: 100%;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: #2FE7B1;
+  transition: 0.3s;
+}
+#spotifyOverlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  transition: 0.3s;
+}
+.build-content {
+  height: 100%;
+  width: 100%;
+  display: table;
+  left: 0;
+  top: 0;
+  background-color: #2FE7B1;
+}
+.build-content-middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+.build-content-inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  color: #fff;
+  text-align: center;
+}
+h1#build-message {
+  height: 100px;
+}
+#outer-circle-layers {
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  transform-origin: center;
+}
+#inner-circle-layers {
+  -webkit-animation: spin 4s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 4s linear infinite;
+  transform-origin: center;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+#exportOverlay {
+  height: 0%;
+}
+/* Position the content inside the overlay */
+.overlay-content {
+  position: relative;
+  top: 25%;
+  /* 25% from the top */
+  width: 100%;
+  /* 100% width */
+  text-align: center;
+  /* Centered text/links */
+}
+.overlay-content img {
+  width: 66px;
+  height: 66px;
+}
+.overlay-content h1 {
+  width: 275px;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 18px auto;
+  color: white;
+}
+@media only screen and (min-width: 768px) {
+  .overlay-content img {
+    width: 84px;
+    height: 84px;
+  }
+  .overlay-content h1 {
+    width: 540px;
+    font-size: 45px;
+    margin: 29px auto;
+  }
+}
+/*
+Submit section
+*/
+.row.submit {
+  padding: 33px 0px;
+}
+.submit-button {
+  height: 50px;
+  width: 229px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  color: white;
+}
+.submit-button:hover,
+.submit-button:active,
+.submit-button:focus {
+  color: white;
+}
+.button-wrapper {
+  text-align: center;
+}
+.submit-button.chill {
+  background-color: #0066FF;
+}
+.submit-button.party {
+  background-color: #FFE001;
+}
+.submit-button.workout {
+  background-color: #FF73FF;
+}
+.submit-button.hangout {
+  background-color: #2FE7B1;
+}
+.start-over {
+  font-family: 'Work Sans', serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.start-over-wrapper {
+  margin-top: 24px;
+}
+.start-over.chill {
+  color: #0066FF;
+}
+.start-over.party {
+  color: #FFE001;
+}
+.start-over.workout {
+  color: #FF73FF;
+}
+.start-over.hangout {
+  color: #2FE7B1;
+}
+.row.footer {
+  padding: 24px 0;
+}
+.row.footer .spotify-logo {
+  margin-left: 14px;
+  margin-top: -1px;
+}
+.footer-text {
+  font-size: 12px;
+  color: #4C4F58;
+  font-weight: 500;
+  height: 24px;
+  line-height: 24px;
+}
+.options {
+  padding: 40px 0px 30px 0px;
+}
+/*
+Media Queries
+*/
+@media only screen and (min-width: 768px) {
+  .tracks {
+    padding: 20px 0px 44px 0px;
+  }
+  .hat h1 {
+    font-size: 58px;
+  }
+  .row.submit {
+    padding: 108px 0 32px 0;
+  }
+  .submit-button {
+    height: 67px;
+    width: 335px;
+    font-size: 25px;
+  }
+  h3 {
+    font-family: 'Work Sans', serif;
+    font-size: 20px;
+  }
+  h3.radio-question {
+    margin: 0;
+    height: 60px;
+    line-height: 30px;
+  }
+  .playlist-desc {
+    max-width: 219px;
+    margin: 0;
+  }
+  .export-header {
+    text-align: right;
+    margin: 0;
+  }
+  .pl-title {
+    height: 150px;
+  }
+}
+.playlist-meta {
+  padding-top: 0px;
+}
+.collab-section {
+  margin-bottom: 50px;
+}
+
+/*# sourceMappingURL=bbq-playlist.css.map */

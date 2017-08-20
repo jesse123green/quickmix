@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Your Quickmix Playlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,800" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/bbq-playlist.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="../static/img/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../static/img/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../static/img/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../static/img/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../static/img/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../static/img/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../static/img/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../static/img/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../static/img/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../static/img/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/icons/favicon-16x16.png">
+    <link rel="manifest" href="../static/img/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#131D31">
+    <meta name="msapplication-TileImage" content="../static/img/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#131D31">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-80235348-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </head>
+
+  <body class="tune tune-hangout">
+
+    <!-- The overlay -->
+    <!-- <div id="spotifyOverlay" class="overlay">
+
+      <div class="overlay-content">
+        <img class="spotify-logo" src="{{ url_for('static', filename='img/Spotify_Icon_RGB_Green.png')}}">
+        <h1 id="spotifyOverlayText"></h1>
+      </div>
+
+    </div> -->
+
+
+    <!-- The overlay -->
+    <div id="spotifyOverlay" class="overlay">
+      <div class="build-content">
+        <div class="build-content-middle">
+          <div class="build-content-inner">
+            <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>
+                quickmix-symbol
+              </title>
+              <defs>
+                <circle id="path-1" cx="20" cy="20" r="20"/>
+                <circle id="path-3" cx="13" cy="13" r="13"/>
+              </defs>
+              <g fill="none" fill-rule="evenodd">
+                <g id="quickmix-symbol">
+                  <g id="outer-circle" transform="translate(2 2)">
+                    <mask id="mask-2" fill="#fff">
+                      <use xlink:href="#path-1"/>
+                    </mask>
+                    <!-- <circle stroke="#13B183" stroke-width="2" cx="20" cy="20" r="21"/> -->
+                    <g id="outer-circle-layers" mask="url(#mask-2)">
+                      <path id="outer-blue" fill="#06F" d="M-6-6h26v26H-6z"/>
+                      <path id="outer-pink" fill="#FF73FF" d="M-6 20h26v26H-6z"/>
+                      <path id="outer-yellow" fill="#FEDF01" d="M20-6h26v26H20z"/>
+                      <path id="outer-green" fill="#2FE7B1" d="M20 20h26v26H20z"/>
+                    </g>
+                  </g>
+                  <g id="inner-circle" transform="rotate(-180 17.5 17.5)">
+                    <mask id="mask-4" fill="#fff">
+                      <use xlink:href="#path-3"/>
+                    </mask>
+                    <use id="inner-circle-mask" fill="#D8D8D8" xlink:href="#path-3"/>
+                    <g id="inner-circle-layers" mask="url(#mask-4)">
+                      <path id="inner-blue" fill="#06F" d="M-4-4h17v17H-4z"/>
+                      <path id="inner-pink" fill="#FF73FF" d="M-4 13h17v17H-4z"/>
+                      <path id="inner-yellow" fill="#FEDF01" d="M13-4h17v17H13z"/>
+                      <path id="inner-green" fill="#2FE7B1" d="M13 13h17v17H13z"/>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <h1 id="spotifyOverlayText">Pulling up your playlist…</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="hat">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="quickmix-bbq-logo">Quickmix BBQ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row options">
+        <div class="col-xs-12 col-sm-6 playlist-meta">
+          <div class="playlist-title">
+            <div class="label">TITLE</div>
+            <h2 id="playlist-title-text">Playlist Title. This is a test of a really long playlist title.</h2>
+          </div>
+          <!-- <div class="playlist-desc">
+            <h3>Your <i>{{type}}</i> playlist has <span id="playlist-meta">26 songs and is 1 hour and 28 minutes</span> long.</h3>
+          </div> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-push-8 collab-section">
+
+          <div class="label">MAKE IT COLLABORATIVE</div>
+          <p class="collab-text">Share this link with your friends so they can add their own BBQ tracks to this playlist.</p>
+          <input onClick="this.select();" class="collab-url-input" id="collabLink" type="text" name="collabUrl" value="Hey boo" readonly></input>
+          <p class="collab-copy-link">
+            <a class="collab-link-anchor" data-clipboard-target="#collabLink" href="#">Copy Link</a>
+          </p>
+          <p class="copy-success" style="display:none">
+            Link copied!
+          </p>
+        </div>
+        <div class="col-sm-7 col-sm-pull-4">
+
+          <div class="label track-label">TRACKS</div>
+          <div class="song-info-loading"><img src="../static/img/spinner-hangout.gif" width="60" height="60"/></div>
+          <div class="influencers hidden">
+            <div class="song-info hangout">
+
+              <div data-bind="foreach: songs">
+                <div class= "song-container">
+                  <div class="coverart" data-bind="style: { backgroundImage: 'url(\'' + coverart + '\')' }">
+                  </div>
+                  <div class="song-preview-area" data-bind="click: $root.playSong">
+                      <table class="song-text">
+                        <tr>
+                          <td>
+                            <h6 data-bind="text: title"></h6>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <h5 data-bind="text: artist"></h5>
+                          </tr>
+                        </td>
+                        <tr>
+                          <td>
+                            <div class="preview" data-bind="css: { hangout: isPlaying()}"><div class='arrow-right' data-bind="css: { hangout: isPlaying()}"></div>Play Preview</div>
+                          </tr>
+                        </td>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row submit">
+        <div class="col-xs-12">
+          <div class="button-wrapper">
+            <button class="btn btn-default submit-button hangout" id="export-bottom">Play on Spotify</button>
+            <div class="start-over-wrapper">
+              <a class="start-over link-shadow underline-link .underline-link hangout" href="/">Or create a new playlist</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row footer">
+        <div class="col-xs-12">
+          <div class="footer-text text-right">
+            Song previews provided by Spotify
+            <img height="24px" width="24px" class="spotify-logo" src="{{ url_for('static', filename='img/Spotify_Icon_RGB_Green.png')}}">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/1.5.2/async.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="../static/js/bbq/build.js"></script>
+  </body>
+</html>
