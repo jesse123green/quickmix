@@ -347,10 +347,14 @@ $(document).ready(function() {
     selected_tracks = [];
     selected_tracks_ids = [];
     i = 0;
+    selected_artist_influencers = []
     while (currentLength < playlistLength){
       if (selected_tracks_ids.includes(tracks[i].id)){
         console.log('TRACK SKIPPED DUP')
         continue
+      }
+      if (!(selected_artist_influencers.includes(artist_influencers[tracks[i].id]))){
+        selected_artist_influencers.push(artist_influencers[tracks[i].id])
       }
       selected_tracks_ids.push(tracks[i].id)
       selected_tracks.push(tracks[i])
@@ -360,16 +364,21 @@ $(document).ready(function() {
         break;
       }
     }
-
+    artists_str = selected_artist_influencers.join(', ')
+    $('#artist-influencers').html("We kicked off the playlist with great BBQ songs similar to some of your favorites: <strong>"+artists_str+"</strong>.")
+    console.log(selected_artist_influencers.join(', '))
     return selected_tracks;
   }
 
 
   function buildPlaylist(tracks) {
     tracklist = [];
+
     for (i in tracks) {
       tracklist.push(tracks[i].id)
+      artist_influencers[tracks[i].id] = user_track_data[tracks[i].influencer].artist
     }
+    console.log(artist_influencers)
     $.ajax({
         url: 'https://api.spotify.com/v1/tracks',
         data: {'ids':tracklist.join()},
@@ -423,6 +432,7 @@ $(document).ready(function() {
   function loadInfluencers(callback){
 
     options = ['option1','option2','option3']
+
     for (var option in options){ // loop through each of the 3 mood options
       for (k in validated_influencers[options[option]].tracks){ // loop through the validated songs for that mood
         trackid = validated_influencers[options[option]].tracks[k].id
@@ -498,6 +508,7 @@ $(document).ready(function() {
   var playlist_option = getURLParam("playlist_option");
   var length_option = 'length30';
   var playlist_url = '';
+  var artist_influencers = {};
 
   console.log("Access Token:", access_token);
   console.log("Refresh Token: ", refresh_token);
