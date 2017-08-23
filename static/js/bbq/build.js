@@ -410,6 +410,9 @@ $(document).ready(function() {
   function generateQuickmixPlaylist(callback){
 
     console.log('influencers')
+    console.log(IVM.influencers())
+    console.log(IVM.moodOption(),'mood option')
+
     data = {'tracks':IVM.influencers(),'pl':playlist_type,'playlist_option':playlist_option}
     $.ajax({
         type : "POST",
@@ -430,7 +433,7 @@ $(document).ready(function() {
   }
 
   function loadInfluencers(callback){
-
+    console.log(validated_influencers)
     options = ['option1','option2','option3']
 
     for (var option in options){ // loop through each of the 3 mood options
@@ -509,6 +512,8 @@ $(document).ready(function() {
   var length_option = 'length30';
   var playlist_url = '';
   var artist_influencers = {};
+
+  IVM.moodOption('option'+playlist_option)// Set Knockout option to correct mood
 
   console.log("Access Token:", access_token);
   console.log("Refresh Token: ", refresh_token);
