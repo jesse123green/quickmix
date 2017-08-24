@@ -1,6 +1,6 @@
 ///////////// Knockout.js definitions //////////////
 
-function influencerSong(trackid, title, artist, coverart, previewURL) {
+function influencerSong(trackid, title, artist, coverart, previewURL, score, uri) {
     var self = this;
     self.trackid = trackid
     self.title = title;
@@ -9,6 +9,8 @@ function influencerSong(trackid, title, artist, coverart, previewURL) {
     self.includeInfluencer = ko.observable(true)
     self.isPlaying = ko.observable(false);
     self.preview = new Audio(previewURL);
+    self.score = score;
+    self.uri = uri;
 }
 
 // Overall viewmodel for this screen, along with initial state
@@ -26,16 +28,30 @@ function InfluencersViewModel() {
 
     self.influencersLoaded = false;
 
+    self.songs = function(option){
+      console.log(option,'OPTION')
+      if (option == '1'){
+        return self.songs1()
+      }
+      else if (option == '2'){
+        return self.songs2()
+      }
+      else if (option == '3'){
+        return self.songs3()
+      }
+    }
+
     // Operations
-    self.addSong = function(trackid,title,artist,coverart,option,previewURL) {
+    self.addSong = function(trackid,title,artist,coverart,option,previewURL,score,uri) {
+      console.log(option,'adding song')
       if (option == 'option1'){
-        self.songs1.push(new influencerSong(trackid,title,artist,coverart,previewURL));
+        self.songs1.push(new influencerSong(trackid,title,artist,coverart,previewURL,score,uri));
       }
       else if (option == 'option2'){
-        self.songs2.push(new influencerSong(trackid,title,artist,coverart,previewURL));
+        self.songs2.push(new influencerSong(trackid,title,artist,coverart,previewURL,score,uri));
       }
       else if (option == 'option3'){
-        self.songs3.push(new influencerSong(trackid,title,artist,coverart,previewURL));
+        self.songs3.push(new influencerSong(trackid,title,artist,coverart,previewURL,score,uri));
       }
     }
 
@@ -108,7 +124,7 @@ function InfluencersViewModel() {
 }
 
 IVM = new InfluencersViewModel();
-
+ko.applyBindings(IVM,document.getElementById('collaborate-tracks'));
 
 function playlistSong(trackid, title, artist, coverart, previewURL, uri) {
     var self = this;
@@ -155,7 +171,7 @@ function PlaylistViewModel() {
 
 PVM = new PlaylistViewModel();
 
-ko.applyBindings(PVM);
+ko.applyBindings(PVM,document.getElementById('current-tracks'));
 
 ////////////////////////////////////////////////////
 
@@ -423,14 +439,30 @@ $(document).ready(function() {
   }
 
   function loadInfluencers(callback){
+
+    n_songs = 3
+
     console.log(validated_influencers)
     options = ['option1','option2','option3']
 
     for (var option in options){ // loop through each of the 3 mood options
+      
+      var track_count = 0;
+
       for (k in validated_influencers[options[option]].tracks){ // loop through the validated songs for that mood
         trackid = validated_influencers[options[option]].tracks[k].id
+        score = validated_influencers[options[option]].tracks[k].score
         track = user_track_data[trackid] // get stored track info
-        IVM.addSong(trackid,track.title,track.artist,track.coverart,options[option],track.previewURL); // add to knockout view
+
+        if (!(playlist_track_ids.includes(trackid)) && score > 0){ // Only add collaborator songs that meet criteria
+          track_count += 1;
+          console.log(track.uri)
+          IVM.addSong(trackid,track.title,track.artist,track.coverart,options[option],track.previewURL,score,track.uri); // add to knockout view
+          if (track_count == n_songs){
+            break
+          }
+        }
+        
       }
     }
 
@@ -438,53 +470,53 @@ $(document).ready(function() {
 
   }
 
-  function exportToSpotify(callback){
-
-    ga('send', 'event', 'button', 'click', 'owner-export', 'bbq');
-    console.log('EXPORTING')
-    playlist_title = userid + '’s Labor Day BBQ'
-    $('#playlist-title-text').text(playlist_title);
-    data = {
-      "name": playlist_title,
-      "public": false,
-      "collaborative": true
-    }
+  function loadOwnerPlaylist(callback){
     $.ajax({
-      type : "POST",
-      url : "https://api.spotify.com/v1/users/"+userid+"/playlists",
-      data: JSON.stringify(data, null, '\t'),
+      type : "GET",
+      url : "https://api.spotify.com/v1/users/"+owner_id+"/playlists/"+playlist_id,
       headers: {
         'Authorization': 'Bearer ' + access_token
       },
       contentType: 'application/json;charset=UTF-8',
       success: function(result) {
-        playlist_id = result.id;
-
-
-        console.log('SET COLLAB')
-        //Set Collab URL
-        $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + userid + "/" + playlist_id + "?pl_option=" + playlist_option);
-        playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
-
-
-        var tracklist = [];
-        for (i in PVM.songs()){
-          tracklist.push(PVM.songs()[i].uri)
+        console.log(result)
+        $('#playlist-title-text').text(result.name);
+        tracks = result.tracks.items
+        console.log(tracks)
+        for (i in tracks){
+          playlist_track_ids.push(tracks[i].track.id)
+          PVM.addSong(tracks[i].track.id,tracks[i].track.name,tracks[i].track.artists[0].name,tracks[i].track.album.images[1].url,tracks[i].track.preview_url,tracks[i].track.uri)
         }
-        // Populate playlist with tracks
-        console.log(tracklist)
-        $.ajax({
-          type : "POST",
-          url : "https://api.spotify.com/v1/users/"+userid+"/playlists/"+playlist_id+"/tracks?uri",
-          data: JSON.stringify({'uris':tracklist}, null, '\t'),
-          headers: {
-            'Authorization': 'Bearer ' + access_token
-          },
-          contentType: 'application/json;charset=UTF-8',
-          success: function(result) {
-            callback();
-          }
-        });
+        callback()
+      }
+    });
+
+  }
+
+  function exportToSpotify(callback){
+
+    ga('send', 'event', 'button', 'click', 'collab-export', 'bbq');
+    console.log('EXPORTING',playlist_option)
+
+    var tracklist = [];
+    songs  = IVM.songs(playlist_option)
+    console.log(songs)
+    for (i in songs){
+      tracklist.push(songs[i].uri)
+    }
+
+    // Populate playlist with tracks
+    console.log(tracklist)
+    $.ajax({
+      type : "POST",
+      url : "https://api.spotify.com/v1/users/"+userid+"/playlists/"+playlist_id+"/tracks?uri",
+      data: JSON.stringify({'uris':tracklist}, null, '\t'),
+      headers: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      contentType: 'application/json;charset=UTF-8',
+      success: function(result) {
+        callback();
       }
     });
   }
@@ -498,10 +530,13 @@ $(document).ready(function() {
   var access_token = getURLParam("access_token");
   var refresh_token = getURLParam("refresh_token");
   var playlist_type = getURLParam("pl");
-  var playlist_option = getURLParam("playlist_option");
-  var length_option = 'length30';
+  var playlist_option = getURLParam("pl_option");
+  var playlist_id = getURLParam("playlist_id");
+  var owner_id = getURLParam("user_id");
   var playlist_url = '';
   var artist_influencers = {};
+  var playlist_track_ids = [];
+  var collaborator_track_ids;
 
   IVM.moodOption('option'+playlist_option)// Set Knockout option to correct mood
 
@@ -509,6 +544,8 @@ $(document).ready(function() {
   console.log("Refresh Token: ", refresh_token);
   console.log("Playlist Type: ", playlist_type);
   console.log("Playlist Option: ", playlist_option);
+  console.log("Playlist ID: ", playlist_id);
+  console.log("Owner ID: ", owner_id);
 
     if (access_token && playlist_type) {
 
@@ -540,19 +577,25 @@ $(document).ready(function() {
                 callback(null, results);
               })
           },
+          owner_playlist: function(callback){
+              loadOwnerPlaylist(function(results){
+                callback(null, results);
+              })
+          },
           reduce_songs: ['short_term', 'long_term', 'medium_term', function(callback, results){
               terms = ['short_term','long_term','medium_term']
               for (term in terms){
                 for (i in results[terms[term]].items){
                   if (!(results[terms[term]].items[i].id in user_track_data)){
                     user_tracks.push({'id':results[terms[term]].items[i].id,'artist':results[terms[term]].items[i].artists[0].id})
-                    user_track_data[results[terms[term]].items[i].id] = {'title':results[terms[term]].items[i].name,'artist':results[terms[term]].items[i].artists[0].name,'coverart':results[terms[term]].items[i].album.images[1].url,'previewURL':results[terms[term]].items[i].preview_url}
+                    console.log(results[terms[term]].items[i].uri)
+                    user_track_data[results[terms[term]].items[i].id] = {'uri':results[terms[term]].items[i].uri,'title':results[terms[term]].items[i].name,'artist':results[terms[term]].items[i].artists[0].name,'coverart':results[terms[term]].items[i].album.images[1].url,'previewURL':results[terms[term]].items[i].preview_url}
                   }
                 }
               }
               callback(null);
           }],
-          validate_songs: ['reduce_songs', function(callback, results){
+          validate_songs: ['reduce_songs','owner_playlist', function(callback, results){
               validateInfluencers(function(){
                 console.log('validateInfluencers')
                   loadInfluencers(function() {
@@ -563,13 +606,7 @@ $(document).ready(function() {
                   });
               })
           }],
-          quickmix_playlist: ['validate_songs', function(callback, results){
-              console.log('quickmix_playlist')
-              generateQuickmixPlaylist(function(){
-                callback(null);
-              })
-          }],
-          export_playlist: ['quickmix_playlist','user_info', function(callback, results){
+          export_playlist: ['validate_songs', function(callback, results){
               console.log('export_playlist')
               exportToSpotify(function(){
                 callback(null);

@@ -122,22 +122,48 @@
       <div class="row">
         <div class="col-sm-4 col-sm-push-8 collab-section">
 
-          <div class="label">MAKE IT COLLABORATIVE</div>
-          <p class="collab-text" id="artist-influencers"></p>
-          <p class="collab-text">Share this link with your friends so they can add their own BBQ tracks!</p>
-          <input onClick="this.select();" class="collab-url-input" id="collabLink" type="text" name="collabUrl" value="Hey boo" readonly></input>
-          <p class="collab-copy-link">
-            <a id="collab-link-anchor-id" class="collab-link-anchor" data-clipboard-target="#collabLink" href="#">Copy Link</a>
-          </p>
-          <p class="copy-success" style="display:none">
-            Link copied!
-          </p>
+          <div class="label">OTHER CONTRIBUTORS</div>
+          <p class="collab-text" id="playlist-contributors"></p>
+          <p class="collab-text">Here are the other contributors... TODO</p>
         </div>
         <div class="col-sm-7 col-sm-pull-4">
 
-          <div class="label track-label">TRACKS</div>
-          <div class="song-info-loading"><img src="../static/img/spinner-hangout.gif" width="60" height="60"/></div>
-          <div class="influencers hidden">
+          <div class="label track-label">YOUR TOP BBQ TRACKS WERE ADDED</div>
+          <div class="song-info-loading"><img src="{{ url_for('static', filename='img/spinner-hangout.gif')}}" width="60" height="60"/></div>
+          <div class="influencers hidden" id="collaborate-tracks">
+            <div class="song-info hangout">
+
+              <div data-bind="foreach: songs{{pl_option}}">
+                <div class= "song-container">
+                  <div class="coverart" data-bind="style: { backgroundImage: 'url(\'' + coverart + '\')' }">
+                  </div>
+                  <div class="song-preview-area" data-bind="click: $root.playSong">
+                      <table class="song-text">
+                        <tr>
+                          <td>
+                            <h6 data-bind="text: title"></h6>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <h5 data-bind="text: artist"></h5>
+                          </tr>
+                        </td>
+                        <tr>
+                          <td>
+                            <div class="preview" data-bind="css: { hangout: isPlaying()}"><div class='arrow-right' data-bind="css: { hangout: isPlaying()}"></div>Play Preview</div>
+                          </tr>
+                        </td>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id = "playlist-spacing" style="margin-top: 40px"></div>
+
+          <div class="influencers hidden" id="current-tracks">
             <div class="song-info hangout">
 
               <div data-bind="foreach: songs">
@@ -201,6 +227,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/1.5.2/async.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-    <script src="../static/js/bbq/build.js"></script>
+    <script src="{{ url_for('static', filename='js/bbq/collab-build.js')}}"></script>
   </body>
 </html>

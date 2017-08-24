@@ -7,22 +7,22 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,800" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bbq-collaborate-index.css')}}">
-    <link rel="apple-touch-icon" sizes="57x57" href="../static/img/icons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../static/img/icons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../static/img/icons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../static/img/icons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../static/img/icons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../static/img/icons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../static/img/icons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../static/img/icons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../static/img/icons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../static/img/icons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/icons/favicon-16x16.png">
-    <link rel="manifest" href="../static/img/icons/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='img/icons/apple-icon-57x57.png')}}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='img/icons/apple-icon-60x60.png')}}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/icons/apple-icon-72x72.png')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/icons/apple-icon-76x76.png')}}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='img/icons/apple-icon-114x114.png')}}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='img/icons/apple-icon-120x120.png')}}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='img/icons/apple-icon-144x144.png')}}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/icons/apple-icon-152x152.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/icons/apple-icon-180x180.png')}}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='img/icons/android-icon-192x192.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/icons/android-icon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='img/icons/android-icon-96x96.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/icons/android-icon-16x16.png')}}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/icons/manifest.json')}}">
     <meta name="msapplication-TileColor" content="#131D31">
-    <meta name="msapplication-TileImage" content="../static/img/icons/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/icons/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#131D31">
 
     <meta property="og:type" content="website"/>
@@ -99,10 +99,10 @@
     		<header>
     			<div class="quickmix-bbq-logo">Quickmix BBQ</div>
           <!-- <h2 id="add-tracks-cta">Add your top barbecue tracks.</h2> -->
-          <h2 id="add-tracks-cta">Add your top barbecue tracks to {{uid}}'s Spotify playlist.</h2>
+          <h2 id="add-tracks-cta">Add your top barbecue tracks to {{uid}}’s Spotify playlist.</h2>
           <div class="playlist-option">
               <div class="button-wrapper">
-                <a href="javascript:openOverlay('/login?pl=laborday?pid={{pid}}')" class="btn btn-mood" id="btn-hangout"><b>Add Your Tracks</b></a>
+                <a href="javascript:openOverlay('/login?pl=laborday&pid={{pid}}&uid={{uid}}&pl_option={{pl_option}}&user_type=collab')" class="btn btn-mood" id="btn-hangout"><b>Add Your Tracks</b></a>
               </div>
           </div>
     		</header>
@@ -110,7 +110,8 @@
     <footer>
       <div class="container-fluid">
         <h4>How It Works</h4>
-        <p>Quickmix BBQ works by finding songs that are similar to songs that you like and similar to songs on other BBQ playlists. It uses data collected from 340 million tracks on over 3 million playlists on Spotify.</p>
+        <p>Quickmix BBQ analyzes your favorite tracks on Spotify and creates a BBQ-friendly playlist with your tastes in mind. It uses data collected from over 3 million playlists to determine each track’s compatibility with mood, activity and your unique music taste.</p>
+        <p>It looks like someone already started a playlist. Add your tracks and join the party!</p>
         <h4><a href="https://twitter.com/quickmixio">Follow us on Twitter</a></h4>
         <p class="solar-eclipse">Made while waiting for the solar eclipse in Charlotte, NC</p>
   	  </div>
