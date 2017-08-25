@@ -506,19 +506,25 @@ $(document).ready(function() {
     }
 
     // Populate playlist with tracks
-    console.log(tracklist)
-    $.ajax({
-      type : "POST",
-      url : "https://api.spotify.com/v1/users/"+userid+"/playlists/"+playlist_id+"/tracks?uri",
-      data: JSON.stringify({'uris':tracklist}, null, '\t'),
-      headers: {
-        'Authorization': 'Bearer ' + access_token
-      },
-      contentType: 'application/json;charset=UTF-8',
-      success: function(result) {
-        callback();
-      }
-    });
+    if (tracklist.length > 0) {
+      $.ajax({
+        type : "POST",
+        url : "https://api.spotify.com/v1/users/"+owner_id+"/playlists/"+playlist_id+"/tracks?uri",
+        data: JSON.stringify({'uris':tracklist}, null, '\t'),
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        },
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result) {
+          callback();
+        }
+      });
+    }
+    else {
+      $("#tracklist-title").text("YOUR BBQ TRACKS WERE ALREADY ADDED!")
+      callback()
+    }
+
   }
 
 
@@ -533,7 +539,7 @@ $(document).ready(function() {
   var playlist_option = getURLParam("pl_option");
   var playlist_id = getURLParam("playlist_id");
   var owner_id = getURLParam("user_id");
-  var playlist_url = '';
+  var playlist_url = 'https://open.spotify.com/user/' + owner_id + '/playlist/' + playlist_id;
   var artist_influencers = {};
   var playlist_track_ids = [];
   var collaborator_track_ids;

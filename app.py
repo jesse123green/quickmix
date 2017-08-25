@@ -13,6 +13,12 @@ def generateRandomString(N):
 	possible = string.ascii_uppercase + string.digits + string.ascii_lowercase
 	return ''.join(random.SystemRandom().choice(possible) for _ in range(N))
 
+def set_cookie(response,cookie_name,cookie_value):
+	if cookie_value != None:
+		response.set_cookie(cookie_name, cookie_value)
+	else:
+		response.set_cookie(cookie_name, expires=0) # Expire cookies to avoid future setting conflicts
+	return
 
 
 category_map = {'chill':['sleep','relax','focus'],'party':['pregame','danceparty','late_night'],'workout':['warm_up','gym','cardio'],'hangout':['dinner','feel_good','bbq'],'laborday':['chill','feel_good','pool_party']}
@@ -101,39 +107,39 @@ def bbq_playlist_owner():
 	return render_template('bbq/owner_playlist.html', type=pl_type)
 
 
-@app.route('/login',methods=['GET','POST'])
-def login():
+@app.route('/login/<user_source>',methods=['GET','POST'])
+def login(user_source):
+	print user_source
 	state = generateRandomString(16)
 	pl = request.args.get('pl')
 	pl_option = request.args.get('pl_option')
-	user_type = request.args.get('user_type')
 	user_id = request.args.get('uid')
 	playlist_id = request.args.get('pid')
 
 
-	redirect_uri = app.config['REDIRECT_URI']
-
+	redirect_uri = app.config['REDIRECT_URI']+'/'+user_source
+	print redirect_uri
 	scope = 'user-top-read user-read-email playlist-modify-public playlist-modify-private'
 	params ={'state':state,'scope':scope,'response_type':'code','client_id':app.config['SPOTIFY_CLIENT_ID'],'redirect_uri':redirect_uri}
 
 	response = make_response(redirect('https://accounts.spotify.com/authorize?'+urllib.urlencode(params)))
+
+
+
 	response.set_cookie(stateKey, state)
-	response.set_cookie('pl', pl)
 	
-	if user_type != None:
-		response.set_cookie('user_type',user_type)
-	if user_id != None:
-		response.set_cookie('user_id',user_id)
-	if playlist_id != None:
-		response.set_cookie('playlist_id',playlist_id)
-	if pl_option != None:
-		response.set_cookie('pl_option', pl_option)
+	set_cookie(response,'pl',pl)
+	set_cookie(response,'user_id',user_id)
+	set_cookie(response,'playlist_id',playlist_id)
+	set_cookie(response,'pl_option',pl_option)
+
 	print 'LOGIN',pl_option
 	return response
 
 
-@app.route('/callback',methods=['GET','POST'])
-def callback():
+@app.route('/callback/<user_source>',methods=['GET','POST'])
+def callback(user_source):
+
 	code = request.args.get('code')
 	state = request.args.get('state')
 	storedState = request.cookies.get(stateKey)
@@ -143,28 +149,34 @@ def callback():
 	else:
 		url = 'https://accounts.spotify.com/api/token'
 
-		values = {'grant_type' : 'authorization_code','redirect_uri':app.config['REDIRECT_URI'],'code':code}
+		redirect_uri = app.config['REDIRECT_URI']+'/'+user_source
+		print redirect_uri
+		values = {'grant_type' : 'authorization_code','redirect_uri':redirect_uri,'code':code}
 		headers = {'Authorization': 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET'])}
 		try:
 			r = requests.post(url, data=values, headers=headers)
 			D = json.loads(r.text)
 			access_token = D['access_token']
 			refresh_token = D['refresh_token']
+
 			pl = request.cookies.get('pl')
 			pl_option = request.cookies.get('pl_option')
-			print "CALLBACK",pl_option
-			user_type = request.cookies.get('user_type')
 			playlist_id = request.cookies.get('playlist_id')
 			user_id = request.cookies.get('user_id')
-			# print 'options',pl,pl_option
-			# print 'user_type',user_type
+			print "CALLBACK",pl_option
+			
+			print 'options',pl,pl_option
+			print 'user_source',user_source
 
-			if user_type == 'collab':
-				response = make_response(redirect('/bbq/collaborate/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'pl_option':pl_option,'playlist_id':playlist_id,'user_id':user_id})))
-			elif pl == "laborday" and pl_option != None:
-				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
-			else:
+			if user_source == 'qm':
+				print 'QM'
 				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
+			elif user_source == 'collab':
+				print 'COLLAB'
+				response = make_response(redirect('/bbq/collaborate/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'pl_option':pl_option,'playlist_id':playlist_id,'user_id':user_id})))
+			elif user_source == 'owner':
+				print 'OWNER'
+				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
 			# session['access_token'] = access_token
 			response.set_cookie(stateKey, '', expires=0)
 
