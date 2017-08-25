@@ -162,6 +162,12 @@ ko.applyBindings(PVM);
 
 $(document).ready(function() {
 
+  // check for a playlist_id in the current history state object
+  var currentBrowserState = history.state
+  if (currentBrowserState && currentBrowserState.playlist_id) {
+    console.log("PLAYLIST '" + currentBrowserState.playlist_id + "' EXISTS, DON'T CREATE A NEW ONE");
+  }
+
   var clipboard = new Clipboard('.collab-link-anchor');
 
   clipboard.on('success', function(e) {
@@ -198,12 +204,12 @@ $(document).ready(function() {
     total_messages = build_messages.length
 
     for (loopCount = 0; loopCount < total_messages; loopCount++) {
-      
+
       wait = ((Math.random() * 2) + 1.25) * 1000
       total_wait += wait
-      
+
       this_message = build_messages[loopCount];
-      
+
 
       (function(this_message) { // Wrapper function to preserve this_message
         setTimeout(function(){
@@ -220,7 +226,7 @@ $(document).ready(function() {
       })(this_message);
 
     }
-    
+
   }
 
   function getInfluencers(time_range,callback){
@@ -466,6 +472,9 @@ $(document).ready(function() {
         $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + userid + "/" + playlist_id + "?pl_option=" + playlist_option);
         playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
 
+        // insert a new history item into the history stack with our playlist_id, and add the id to the current url.
+        var stateObj = { playlist_id: playlist_id };
+        history.pushState(stateObj, "", window.location + "&pid=" + playlist_id);
 
         var tracklist = [];
         for (i in PVM.songs()){
@@ -582,7 +591,6 @@ $(document).ready(function() {
               })
           }],
       }, function(err, results) {
-        
           // console.log('err = ', err);
       });
 
