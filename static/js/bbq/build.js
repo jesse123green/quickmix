@@ -162,10 +162,15 @@ ko.applyBindings(PVM);
 
 $(document).ready(function() {
 
+  var PLAYLIST_EXISTS = false;
+  var PLAYLIST_ID = "";
+
   // check for a playlist_id in the current history state object
   var currentBrowserState = history.state
   if (currentBrowserState && currentBrowserState.playlist_id) {
     console.log("PLAYLIST '" + currentBrowserState.playlist_id + "' EXISTS, DON'T CREATE A NEW ONE");
+    PLAYLIST_EXISTS = true;
+    PLAYLIST_ID = currentBrowserState.playlist_id;
   }
 
   var clipboard = new Clipboard('.collab-link-anchor');
