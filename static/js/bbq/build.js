@@ -162,17 +162,6 @@ ko.applyBindings(PVM);
 
 $(document).ready(function() {
 
-  var PLAYLIST_EXISTS = false;
-  var PLAYLIST_ID = "";
-
-  // check for a playlist_id in the current history state object
-  var currentBrowserState = history.state
-  if (currentBrowserState && currentBrowserState.playlist_id) {
-    console.log("PLAYLIST '" + currentBrowserState.playlist_id + "' EXISTS, DON'T CREATE A NEW ONE");
-    PLAYLIST_EXISTS = true;
-    PLAYLIST_ID = currentBrowserState.playlist_id;
-  }
-
   var clipboard = new Clipboard('.collab-link-anchor');
 
   clipboard.on('success', function(e) {
@@ -197,12 +186,7 @@ $(document).ready(function() {
     callback()
   }
 
-  function nextMessage(nm_callback) {
-    build_messages = [
-      "Checking your taste preferences",
-      "Compiling the best BBQ tracks for you",
-      "Adding them to the playlist"
-    ]
+  function nextMessage(build_messages,nm_callback) {
 
     completeCount = 0
     total_wait = 0
@@ -210,7 +194,13 @@ $(document).ready(function() {
 
     for (loopCount = 0; loopCount < total_messages; loopCount++) {
 
-      wait = ((Math.random() * 2) + 1.25) * 1000
+      if (loopCount > 0) {
+        wait = ((Math.random() * 2) + 1.25) * 1000
+      }
+      else {
+        wait = 0
+      }
+
       total_wait += wait
 
       this_message = build_messages[loopCount];
@@ -498,10 +488,6 @@ $(document).ready(function() {
         $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + userid + "/" + playlist_id + "?pl_option=" + playlist_option);
         playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
 
-        // insert a new history item into the history stack with our playlist_id, and add the id to the current url.
-        var stateObj = { playlist_id: playlist_id };
-        history.pushState(stateObj, "", window.location + "&pid=" + playlist_id);
-
         var tracklist = [];
         for (i in PVM.songs()){
           tracklist.push(PVM.songs()[i].uri)
@@ -517,41 +503,87 @@ $(document).ready(function() {
           },
           contentType: 'application/json;charset=UTF-8',
           success: function(result) {
+
+            // insert a new history item into the history stack with our playlist_id, and add the id to the current url.
+            var stateObj = { playlist_id: playlist_id, userid: userid };
+            history.pushState(stateObj, "", window.location + "&pid=" + playlist_id);
             callback();
+
           }
         });
       }
     });
   }
 
+  function loadOwnerPlaylist(callback){
+    $.ajax({
+      type : "GET",
+      url : "https://api.spotify.com/v1/users/"+EXISTING_USER_ID+"/playlists/"+EXISTING_PLAYLIST_ID,
+      headers: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      contentType: 'application/json;charset=UTF-8',
+      success: function(result) {
+        console.log(result)
+        $('#playlist-title-text').text(result.name);
+        tracks = result.tracks.items
+        console.log(tracks)
+        for (i in tracks){
+          PVM.addSong(tracks[i].track.id,tracks[i].track.name,tracks[i].track.artists[0].name,tracks[i].track.album.images[1].url,tracks[i].track.preview_url,tracks[i].track.uri)
+        }
+        $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + EXISTING_USER_ID + "/" + EXISTING_PLAYLIST_ID + "?pl_option=" + playlist_option);
+        playlist_url = 'https://open.spotify.com/user/' + EXISTING_USER_ID + '/playlist/' + EXISTING_PLAYLIST_ID
 
-  var user_tracks = [];
-  var user_track_data = {};
-  var validated_influencers;
-  var userid;
-  var username;
-  var playlist_id;
-  var access_token = getURLParam("access_token");
-  var refresh_token = getURLParam("refresh_token");
-  var playlist_type = getURLParam("pl");
-  var playlist_option = getURLParam("playlist_option");
-  var length_option = 'length30';
-  var playlist_url = '';
-  var artist_influencers = {};
+        $('.song-info-loading').hide();
+        $('.influencers').removeClass("hidden");
+        $('#loggedin').show();
 
-  IVM.moodOption('option'+playlist_option)// Set Knockout option to correct mood
+        callback()
+      }
+    });
 
-  console.log("Access Token:", access_token);
-  console.log("Refresh Token: ", refresh_token);
-  console.log("Playlist Type: ", playlist_type);
-  console.log("Playlist Option: ", playlist_option);
+  }
 
-    if (access_token && playlist_type) {
+  function getExistingPlaylist(){
+      /// Call Spotify api in parallel for loading existing playlist
+      async.auto({
+          load_messages: function(callback){
+              build_messages = [
+                "Getting your playlist"
+              ]
+              nextMessage(build_messages,function(){
+                console.log('LOAD MESSAGES DONE')
+                callback()
+              });
+          },
+          owner_playlist: function(callback){
+              console.log('owner playlist')
+              loadOwnerPlaylist(function(results){
+                callback(null, results);
+              })
+          },
+          remove_overlay: ['owner_playlist','load_messages', function(callback, results){
+              console.log('remove_overlay')
+              console.log(PVM.songs())
+              removeOverlay(function(){
+                callback(null);
+              })
+          }],
+      }, function(err, results) {
+          // console.log('err = ', err);
+      });
+  }
 
+  function createPlaylistFlow(){
       /// Call Spotify api in parallel for top songs; reduce, validate, and load songs in view
       async.auto({
           load_messages: function(callback){
-              nextMessage(function(){
+              build_messages = [
+                "Checking your taste preferences",
+                "Compiling the best BBQ tracks for you",
+                "Adding them to the playlist"
+              ]
+              nextMessage(build_messages,function(){
                 console.log('LOAD MESSAGES DONE')
                 callback()
               });
@@ -627,17 +659,60 @@ $(document).ready(function() {
       }, function(err, results) {
           // console.log('err = ', err);
       });
+  }
+
+  var PLAYLIST_EXISTS = false;
+  var EXISTING_PLAYLIST_ID = "";
+  var EXISTING_USER_ID = "";
 
 
 
-    } else {
-        shOverlay('/');
+  // check for a playlist_id in the current history state object
+  var currentBrowserState = history.state
+  if (currentBrowserState && currentBrowserState.playlist_id && currentBrowserState.userid) {
+    PLAYLIST_EXISTS = true;
+    console.log(currentBrowserState)
+    EXISTING_PLAYLIST_ID = currentBrowserState.playlist_id;
+    EXISTING_USER_ID = currentBrowserState.userid;
+  }
+
+  var user_tracks = [];
+  var user_track_data = {};
+  var validated_influencers;
+  var userid;
+  var username;
+  var playlist_id;
+  var access_token = getURLParam("access_token");
+  var playlist_type = getURLParam("pl");
+  var playlist_option = getURLParam("playlist_option");
+  var length_option = 'length30';
+  var playlist_url = '';
+  var artist_influencers = {};
+
+  IVM.moodOption('option'+playlist_option)// Set Knockout option to correct mood
+
+  console.log("Access Token:", access_token);
+  console.log("Playlist Type: ", playlist_type);
+  console.log("Playlist Option: ", playlist_option);
+
+  if (access_token && playlist_type) {
+    if (PLAYLIST_EXISTS == true){
+      console.log("PLAYLIST '" + currentBrowserState.playlist_id + "' EXISTS, DON'T CREATE A NEW ONE");
+      getExistingPlaylist()
+    }
+    else {
+      createPlaylistFlow()
     }
 
 
-    $('#export-bottom').click(function() {
-      window.location =  playlist_url;
-    });
+  } else {
+      shOverlay('/');
+  }
+
+
+  $('#export-bottom').click(function() {
+    window.location =  playlist_url;
+  });
 
 });
 

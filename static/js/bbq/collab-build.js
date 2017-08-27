@@ -215,7 +215,12 @@ $(document).ready(function() {
 
     for (loopCount = 0; loopCount < total_messages; loopCount++) {
       
-      wait = ((Math.random() * 2) + 1.25) * 1000
+      if (loopCount > 0) {
+        wait = ((Math.random() * 2) + 1.25) * 1000
+      }
+      else {
+        wait = 0
+      }
       total_wait += wait
       
       this_message = build_messages[loopCount];
@@ -534,7 +539,6 @@ $(document).ready(function() {
   var userid;
   var username;
   var access_token = getURLParam("access_token");
-  var refresh_token = getURLParam("refresh_token");
   var playlist_type = getURLParam("pl");
   var playlist_option = getURLParam("pl_option");
   var playlist_id = getURLParam("playlist_id");
@@ -547,7 +551,6 @@ $(document).ready(function() {
   IVM.moodOption('option'+playlist_option)// Set Knockout option to correct mood
 
   console.log("Access Token:", access_token);
-  console.log("Refresh Token: ", refresh_token);
   console.log("Playlist Type: ", playlist_type);
   console.log("Playlist Option: ", playlist_option);
   console.log("Playlist ID: ", playlist_id);

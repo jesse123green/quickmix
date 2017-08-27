@@ -182,7 +182,7 @@ $(document).ready(function() {
   }
 
   function sendToPlaylist(){
-    window.location.href = '/playlist?access_token=' + access_token + "&refresh_token=" + refresh_token + "&pl=" + playlist_type + "&playlist_option=" + IVM.moodOption() + "&trackids=" + IVM.influencers().join() + "&length_option=" + IVM.lengthOption();
+    window.location.href = '/playlist?access_token=' + access_token + "&pl=" + playlist_type + "&playlist_option=" + IVM.moodOption() + "&trackids=" + IVM.influencers().join() + "&length_option=" + IVM.lengthOption();
   }
 
   var user_tracks = [];
@@ -190,7 +190,6 @@ $(document).ready(function() {
   var validated_influencers;
   var userid;
   var access_token = getURLParam("access_token");
-  var refresh_token = getURLParam("refresh_token");
   var playlist_type = getURLParam("pl");
 
     if (access_token && playlist_type) {

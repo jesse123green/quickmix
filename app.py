@@ -179,13 +179,13 @@ def callback(user_source):
 
 			if user_source == 'qm':
 				print 'QM'
-				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl})))
+				response = make_response(redirect('/tune?'+urllib.urlencode({'access_token':access_token,'pl':pl})))
 			elif user_source == 'collab':
 				print 'COLLAB'
-				response = make_response(redirect('/bbq/collaborate/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'pl_option':pl_option,'playlist_id':playlist_id,'user_id':user_id})))
+				response = make_response(redirect('/bbq/collaborate/playlist?'+urllib.urlencode({'access_token':access_token,'pl':pl,'pl_option':pl_option,'playlist_id':playlist_id,'user_id':user_id})))
 			elif user_source == 'owner':
 				print 'OWNER'
-				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'refresh_token':refresh_token,'pl':pl,'playlist_option':pl_option})))
+				response = make_response(redirect('/bbq/playlist?'+urllib.urlencode({'access_token':access_token,'pl':pl,'playlist_option':pl_option})))
 			# session['access_token'] = access_token
 			response.set_cookie(stateKey, '', expires=0)
 
