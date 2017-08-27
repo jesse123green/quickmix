@@ -532,7 +532,7 @@ $(document).ready(function() {
       success: function(result) {
         playlist_id = result.id;
 
-
+        var tracklist_export = [];
         console.log('SET COLLAB')
         //Set Collab URL
         $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + userid + "/" + playlist_id + "?pl_option=" + playlist_option);
