@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, jsonify, make_response, session
 from flask.ext.basicauth import BasicAuth
-import numpy as np
 import sys,urllib,json,time,re,random,string,math
 import os,base64,requests
 from datetime import date
