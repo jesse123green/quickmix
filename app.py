@@ -144,6 +144,8 @@ def callback(user_source):
 	state = request.args.get('state')
 	storedState = request.cookies.get(stateKey)
 
+	this_time = int(time.time())
+
 	if state is None or state != storedState:
 		return redirect('/#error=state_mismatch')
 	else:
@@ -158,6 +160,13 @@ def callback(user_source):
 			D = json.loads(r.text)
 			access_token = D['access_token']
 			refresh_token = D['refresh_token']
+			expires_in = D['expires_in'] + this_time
+
+			headers = {'Content-Type': 'application/json'}
+			values = {'access_token' : access_token,'refresh_token':refresh_token,'expires_in':expires_in}
+			url = 'https://5sgoxzland.execute-api.us-east-1.amazonaws.com/stage/playlist-update/user'
+			r = requests.post(url, data=json.dumps(values), headers=headers)
+			print r.text
 
 			pl = request.cookies.get('pl')
 			pl_option = request.cookies.get('pl_option')

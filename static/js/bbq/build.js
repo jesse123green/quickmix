@@ -422,6 +422,27 @@ $(document).ready(function() {
 
   }
 
+  function quickmixPlaylistSave(callback){
+
+    data = {'owner_id':userid,'playlist_id':playlist_id,'pl_option':playlist_option}
+    $.ajax({
+        type : "POST",
+        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/stage/playlist-update/owner",
+        data: JSON.stringify(data, null, '\t'),
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result) {
+          console.log(result);
+            result = JSON.parse(result['body'])
+            console.log(result)
+            callback();
+            // $('.song-info-loading').hide();
+            // $('.influencers').removeClass("hidden");
+        }
+      });
+
+
+  }
+
   function loadInfluencers(callback){
     console.log(validated_influencers)
     options = ['option1','option2','option3']
@@ -442,7 +463,7 @@ $(document).ready(function() {
 
     ga('send', 'event', 'button', 'click', 'owner-export', 'bbq');
     console.log('EXPORTING')
-    playlist_title = userid + '’s Labor Day BBQ'
+    playlist_title = username + '’s Labor Day BBQ'
     $('#playlist-title-text').text(playlist_title);
     data = {
       "name": playlist_title,
@@ -495,6 +516,7 @@ $(document).ready(function() {
   var validated_influencers;
   var userid;
   var username;
+  var playlist_id;
   var access_token = getURLParam("access_token");
   var refresh_token = getURLParam("refresh_token");
   var playlist_type = getURLParam("pl");
@@ -575,7 +597,14 @@ $(document).ready(function() {
                 callback(null);
               })
           }],
-          remove_overlay: ['export_playlist','load_messages', function(callback, results){
+          save_playlist: ['export_playlist', function(callback, results){
+              console.log('quickmix playlist save')
+              quickmixPlaylistSave(function(){
+                console.log('quickmix playlist save complete')
+                callback(null);
+              })
+          }],
+          remove_overlay: ['save_playlist','load_messages', function(callback, results){
               console.log('remove_overlay')
               removeOverlay(function(){
                 callback(null);

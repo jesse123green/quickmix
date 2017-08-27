@@ -261,6 +261,7 @@ $(document).ready(function() {
           'Authorization': 'Bearer ' + access_token
         },
         success: function(response) {
+          console.log(response)
           userid = response.id;
           display_name = response.display_name;
           if (display_name == null){
@@ -507,15 +508,14 @@ $(document).ready(function() {
 
     // Populate playlist with tracks
     if (tracklist.length > 0) {
+      data = {'tracks':tracklist,'playlist_id':playlist_id,'owner_id':owner_id,'user_id':userid}
       $.ajax({
         type : "POST",
-        url : "https://api.spotify.com/v1/users/"+owner_id+"/playlists/"+playlist_id+"/tracks?uri",
-        data: JSON.stringify({'uris':tracklist}, null, '\t'),
-        headers: {
-          'Authorization': 'Bearer ' + access_token
-        },
+        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/stage/playlist-update/collaborate",
+        data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
+          console.log(result)
           callback();
         }
       });
