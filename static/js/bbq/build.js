@@ -182,7 +182,12 @@ $(document).ready(function() {
     });
 
   function changeMessage(message,callback){
-    $('#spotifyOverlayText').html(message);
+    if (!IS_LOAD_ERROR){
+      $('#spotifyOverlayText').html(message);
+    }
+    else {
+      console.log('error is in change message')
+    }
     callback()
   }
 
@@ -234,6 +239,13 @@ $(document).ready(function() {
         success: function(response) {
           // Top tracks from spotify success
           callback(response)
+        },
+        error: function(result){
+          console.log('API CALL ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
     });
   }
@@ -255,6 +267,13 @@ $(document).ready(function() {
             username = display_name;
           }
           callback(response)
+        },
+        error: function(result){
+          console.log('API CALL ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
     });
   }
@@ -279,6 +298,13 @@ $(document).ready(function() {
 
           callback();
 
+        },
+        error: function(result){
+          console.log('QM VALIDATE ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
     });
   }
@@ -362,7 +388,7 @@ $(document).ready(function() {
   }
 
 
-  function buildPlaylist(tracks) {
+  function buildPlaylist(tracks,callback) {
     tracklist = [];
 
     for (i in tracks) {
@@ -390,9 +416,17 @@ $(document).ready(function() {
           else {
             length_text = "1 hour and " + playlist_length.m + " minutes"
           }
-          console.log('TRACKS')
-          console.log(tracks)
+          console.log('PLAYLIST COMPLETE')
+          callback()
+          // console.log(tracks)
           // $("#playlist-meta").text(tracks.length + " songs and is " + length_text);
+        },
+        error: function(result){
+          console.log('SPOTIFY TRACKS ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
     });
   }
@@ -411,12 +445,21 @@ $(document).ready(function() {
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
-          console.log(result);
             result = JSON.parse(result['body'])
-            buildPlaylist(result.data.songs);
-            callback();
+            console.log('PLAYLIST START')
+            buildPlaylist(result.data.songs,function(){
+              console.log('PLAYLIST SHOULD BE DONE')
+              callback();
+            });
             // $('.song-info-loading').hide();
             // $('.influencers').removeClass("hidden");
+        },
+        error: function(result){
+          console.log('API CALL ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
       });
 
@@ -438,6 +481,13 @@ $(document).ready(function() {
             callback();
             // $('.song-info-loading').hide();
             // $('.influencers').removeClass("hidden");
+        },
+        error: function(result){
+          console.log('QM PLAYLIST SAVE ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
       });
 
@@ -488,16 +538,16 @@ $(document).ready(function() {
         $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + userid + "/" + playlist_id + "?pl_option=" + playlist_option);
         playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
 
-        var tracklist = [];
+        var tracklist_export = [];
         for (i in PVM.songs()){
-          tracklist.push(PVM.songs()[i].uri)
+          tracklist_export.push(PVM.songs()[i].uri)
         }
         // Populate playlist with tracks
-        console.log(tracklist)
+        console.log(tracklist_export)
         $.ajax({
           type : "POST",
           url : "https://api.spotify.com/v1/users/"+userid+"/playlists/"+playlist_id+"/tracks?uri",
-          data: JSON.stringify({'uris':tracklist}, null, '\t'),
+          data: JSON.stringify({'uris':tracklist_export}, null, '\t'),
           headers: {
             'Authorization': 'Bearer ' + access_token
           },
@@ -507,10 +557,24 @@ $(document).ready(function() {
             // insert a new history item into the history stack with our playlist_id, and add the id to the current url.
             var stateObj = { playlist_id: playlist_id, userid: userid };
             history.pushState(stateObj, "", window.location + "&pid=" + playlist_id);
-            callback();
+            callback()
 
+          },
+          error: function(result){
+            console.log('ERROR CREATING PLAYLIST')
+            changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+              IS_LOAD_ERROR = true;
+              callback()
+            })
           }
         });
+      },
+      error: function(result){
+        console.log('ERROR ADDING TRACKS')
+        changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+          IS_LOAD_ERROR = true;
+          callback()
+        })
       }
     });
   }
@@ -539,6 +603,13 @@ $(document).ready(function() {
         $('#loggedin').show();
 
         callback()
+      },
+      error: function(result){
+        console.log('API CALL ERROR')
+        changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
+          IS_LOAD_ERROR = true;
+          callback()
+        })
       }
     });
 
@@ -565,9 +636,11 @@ $(document).ready(function() {
           remove_overlay: ['owner_playlist','load_messages', function(callback, results){
               console.log('remove_overlay')
               console.log(PVM.songs())
-              removeOverlay(function(){
-                callback(null);
-              })
+              if (!IS_LOAD_ERROR) {
+                removeOverlay(function(){
+                  callback(null);
+                })
+              }
           }],
       }, function(err, results) {
           // console.log('err = ', err);
@@ -652,9 +725,11 @@ $(document).ready(function() {
           }],
           remove_overlay: ['save_playlist','load_messages', function(callback, results){
               console.log('remove_overlay')
-              removeOverlay(function(){
-                callback(null);
-              })
+              if (!IS_LOAD_ERROR) {
+                removeOverlay(function(){
+                  callback(null);
+                })
+              }
           }],
       }, function(err, results) {
           // console.log('err = ', err);
@@ -664,6 +739,7 @@ $(document).ready(function() {
   var PLAYLIST_EXISTS = false;
   var EXISTING_PLAYLIST_ID = "";
   var EXISTING_USER_ID = "";
+  var IS_LOAD_ERROR = false;
 
 
 

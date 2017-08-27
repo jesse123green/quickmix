@@ -198,7 +198,12 @@ $(document).ready(function() {
     });
 
   function changeMessage(message,callback){
-    $('#spotifyOverlayText').html(message);
+    if (!IS_LOAD_ERROR){
+      $('#spotifyOverlayText').html(message);
+    }
+    else {
+      console.log('error is in change message')
+    }
     callback()
   }
 
@@ -254,6 +259,13 @@ $(document).ready(function() {
         success: function(response) {
           // Top tracks from spotify success
           callback(response)
+        },
+        error: function(result){
+          console.log('SPOTIFY TOP TRACKS ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
     });
   }
@@ -276,6 +288,13 @@ $(document).ready(function() {
             username = display_name;
           }
           callback(response)
+        },
+        error: function(result){
+          console.log('SPOTIFY USER INFO ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
     });
   }
@@ -300,6 +319,13 @@ $(document).ready(function() {
 
           callback();
 
+        },
+        error: function(result){
+          console.log('QM VALIDATE ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
     });
   }
@@ -382,68 +408,6 @@ $(document).ready(function() {
     return selected_tracks;
   }
 
-
-  function buildPlaylist(tracks) {
-    tracklist = [];
-
-    for (i in tracks) {
-      tracklist.push(tracks[i].id)
-      artist_influencers[tracks[i].id] = user_track_data[tracks[i].influencer].artist
-    }
-    console.log(artist_influencers)
-    $.ajax({
-        url: 'https://api.spotify.com/v1/tracks',
-        data: {'ids':tracklist.join()},
-        headers: {
-          'Authorization': 'Bearer ' + access_token
-        },
-        success: function(response) {
-          tracks = selectPlaylistTracks(response.tracks,length_option);
-          playlist_length_ms = 0;
-          for (i in tracks) {
-            playlist_length_ms += tracks[i]['duration_ms'];
-            PVM.addSong(tracks[i].id,tracks[i].name,tracks[i].artists[0].name,tracks[i].album.images[1].url,tracks[i].preview_url,tracks[i].uri);
-          }
-          playlist_length = secondsToTime(playlist_length_ms/1000);
-          if (playlist_length.h == 0){
-            length_text = playlist_length.m + " minutes"
-          }
-          else {
-            length_text = "1 hour and " + playlist_length.m + " minutes"
-          }
-          console.log('TRACKS')
-          console.log(tracks)
-          // $("#playlist-meta").text(tracks.length + " songs and is " + length_text);
-        }
-    });
-  }
-
-
-  function generateQuickmixPlaylist(callback){
-
-    console.log('influencers')
-    console.log(IVM.influencers())
-    console.log(IVM.moodOption(),'mood option')
-
-    data = {'tracks':IVM.influencers(),'pl':playlist_type,'playlist_option':playlist_option}
-    $.ajax({
-        type : "POST",
-        url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/prod/quickmix_validate/songs",
-        data: JSON.stringify(data, null, '\t'),
-        contentType: 'application/json;charset=UTF-8',
-        success: function(result) {
-          console.log(result);
-            result = JSON.parse(result['body'])
-            buildPlaylist(result.data.songs);
-            callback();
-            // $('.song-info-loading').hide();
-            // $('.influencers').removeClass("hidden");
-        }
-      });
-
-
-  }
-
   function loadInfluencers(callback){
 
     n_songs = 3
@@ -494,6 +458,13 @@ $(document).ready(function() {
           PVM.addSong(tracks[i].track.id,tracks[i].track.name,tracks[i].track.artists[0].name,tracks[i].track.album.images[1].url,tracks[i].track.preview_url,tracks[i].track.uri)
         }
         callback()
+      },
+      error: function(result){
+        console.log('SPOTIFY GET PLAYLIST ERROR')
+        changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
+          IS_LOAD_ERROR = true;
+          callback()
+        })
       }
     });
 
@@ -504,16 +475,16 @@ $(document).ready(function() {
     ga('send', 'event', 'button', 'click', 'collab-export', 'bbq');
     console.log('EXPORTING',playlist_option)
 
-    var tracklist = [];
+    var export_tracklist = [];
     songs  = IVM.songs(playlist_option)
     console.log(songs)
     for (i in songs){
-      tracklist.push(songs[i].uri)
+      export_tracklist.push(songs[i].uri)
     }
 
     // Populate playlist with tracks
-    if (tracklist.length > 0) {
-      data = {'tracks':tracklist,'playlist_id':playlist_id,'owner_id':owner_id,'user_id':userid}
+    if (export_tracklist.length > 0) {
+      data = {'tracks':export_tracklist,'playlist_id':playlist_id,'owner_id':owner_id,'user_id':userid}
       $.ajax({
         type : "POST",
         url : "https://5sgoxzland.execute-api.us-east-1.amazonaws.com/stage/playlist-update/collaborate",
@@ -522,6 +493,13 @@ $(document).ready(function() {
         success: function(result) {
           console.log(result)
           callback();
+        },
+        error: function(result){
+          console.log('SPOTIFY EXPORT ERROR')
+          changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
+            IS_LOAD_ERROR = true;
+            callback()
+          })
         }
       });
     }
@@ -532,6 +510,7 @@ $(document).ready(function() {
 
   }
 
+  var IS_LOAD_ERROR = false;
 
   var user_tracks = [];
   var user_track_data = {};
@@ -623,9 +602,11 @@ $(document).ready(function() {
           }],
           remove_overlay: ['export_playlist','load_messages', function(callback, results){
               console.log('remove_overlay')
-              removeOverlay(function(){
-                callback(null);
-              })
+              if (!IS_LOAD_ERROR) {
+                removeOverlay(function(){
+                  callback(null);
+                })
+              }
           }],
       }, function(err, results) {
         
