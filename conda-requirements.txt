@@ -1,3 +1,1 @@
 nomkl
-numpy==1.11.0
-gensim==0.12.4
