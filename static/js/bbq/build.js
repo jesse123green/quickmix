@@ -540,8 +540,6 @@ $(document).ready(function() {
 
         $("#listenLink").html("Listen to it on Spotify.");
         $("#listenLink").attr("href",playlist_url);
-        var alink = $("#listenLink")
-        console.log("LINK: ", alink)
 
         for (i in PVM.songs()){
           tracklist_export.push(PVM.songs()[i].uri)
