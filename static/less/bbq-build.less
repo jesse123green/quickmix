@@ -77,15 +77,20 @@ h3 {
     vertical-align: middle;
 }
 
+h1#build-message {
+	height: 100px;
+	font-size: 24px;
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
 .build-content-inner {
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    max-width: 400px;
 		color: #fff;
 		text-align: center;
-}
-h1#build-message {
-	height: 100px;
 }
 
 body.build #outer-circle-layers {
@@ -145,6 +150,19 @@ Media Queries
 			font-size: 35px;
 		}
 	}
+
+	h1#build-message {
+		height: 100px;
+		font-size: 36px;
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 16px;
+	}
+
+	.build-content-inner {
+	    max-width: 540px;
+	}
+
 }
 
 @media only screen and (min-width:768px) {

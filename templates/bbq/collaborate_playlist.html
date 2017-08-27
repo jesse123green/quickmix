@@ -102,7 +102,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="quickmix-bbq-logo">Quickmix BBQ</div>
+            <a href="/bbq"><div class="quickmix-bbq-logo">Quickmix BBQ</div></a>
           </div>
         </div>
       </div>
@@ -122,12 +122,10 @@
       <div class="row">
         <div class="col-sm-4 col-sm-push-8 collab-section">
 
-          <div class="label">OTHER CONTRIBUTORS</div>
-          <p class="collab-text" id="playlist-contributors"></p>
-          <p class="collab-text">Here are the other contributors... TODO</p>
+          <div class="label">YOUR WORK IS DONE</div>
+          <p class="collab-text" id="collab-next-steps"></p>
         </div>
         <div class="col-sm-7 col-sm-pull-4">
-
           <div class="label track-label" id="tracklist-title">YOUR TOP BBQ TRACKS WERE ADDED</div>
           <div class="song-info-loading"><img src="{{ url_for('static', filename='img/spinner-hangout.gif')}}" width="60" height="60"/></div>
           <div class="influencers hidden" id="collaborate-tracks">
@@ -162,7 +160,7 @@
           </div>
 
           <div id = "playlist-spacing" style="margin-top: 40px"></div>
-
+          <div class="label track-label">THE PLAYLIST</div>
           <div class="influencers hidden" id="current-tracks">
             <div class="song-info hangout">
 
