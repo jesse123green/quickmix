@@ -189,13 +189,22 @@ Header section
 	text-decoration: none;
 	margin: 8px 0;
 }
-
+.collab-copy-link a:hover {
+	text-decoration: underline;
+	color: darken(@hangout-light, 10%);
+}
 .copy-success {
 	color: @party-dark;
 }
 
-
-.collab-copy-link a:hover {
+a#listenLink {
+	display: block;
+	font-size: 15px;
+	color: @hangout-light;
+	text-decoration: none;
+	margin: 8px 0;
+}
+a#listenLink:hover {
 	text-decoration: underline;
 	color: darken(@hangout-light, 10%);
 }
@@ -416,15 +425,20 @@ h1#spotifyOverlayText {
     vertical-align: middle;
 }
 
+h1#build-message {
+	height: 100px;
+	font-size: 24px;
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
 .build-content-inner {
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    max-width: 400px;
 		color: #fff;
 		text-align: center;
-}
-h1#build-message {
-	height: 100px;
 }
 
 #outer-circle-layers {
@@ -613,7 +627,17 @@ Media Queries
 }
 
 @media only screen and (min-width:600px) {
+	h1#build-message {
+		height: 100px;
+		font-size: 36px;
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 16px;
+	}
 
+	.build-content-inner {
+	    max-width: 540px;
+	}
 }
 
 .playlist-meta {

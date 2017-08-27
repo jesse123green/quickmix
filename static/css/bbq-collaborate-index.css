@@ -337,6 +337,20 @@ Playlist songs
 .song-info .song-container .preview.hangout {
   color: #2FE7B1;
 }
+h1#build-message {
+  height: 100px;
+  font-size: 24px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.build-content-inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
+  color: #fff;
+  text-align: center;
+}
 @media only screen and (min-width: 600px) {
   header h1 {
     font-size: 46px;
@@ -365,6 +379,16 @@ Playlist songs
     font-size: 0;
     margin: 0 auto;
     margin-top: 30px;
+  }
+  h1#build-message {
+    height: 100px;
+    font-size: 36px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 16px;
+  }
+  .build-content-inner {
+    max-width: 540px;
   }
 }
 @media only screen and (min-width: 1440px) {
@@ -420,16 +444,6 @@ Playlist songs
 .build-content-middle {
   display: table-cell;
   vertical-align: middle;
-}
-.build-content-inner {
-  margin-left: auto;
-  margin-right: auto;
-  width: 400px;
-  color: #fff;
-  text-align: center;
-}
-h1#build-message {
-  height: 100px;
 }
 body.home #outer-circle-layers {
   -webkit-animation: spin 2s linear infinite;
