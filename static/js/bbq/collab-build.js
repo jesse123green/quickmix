@@ -219,7 +219,7 @@ $(document).ready(function() {
     total_messages = build_messages.length
 
     for (loopCount = 0; loopCount < total_messages; loopCount++) {
-      
+
       if (loopCount > 0) {
         wait = ((Math.random() * 2) + 1.25) * 1000
       }
@@ -227,9 +227,9 @@ $(document).ready(function() {
         wait = 0
       }
       total_wait += wait
-      
+
       this_message = build_messages[loopCount];
-      
+
 
       (function(this_message) { // Wrapper function to preserve this_message
         setTimeout(function(){
@@ -246,7 +246,7 @@ $(document).ready(function() {
       })(this_message);
 
     }
-    
+
   }
 
   function getInfluencers(time_range,callback){
@@ -416,7 +416,7 @@ $(document).ready(function() {
     options = ['option1','option2','option3']
 
     for (var option in options){ // loop through each of the 3 mood options
-      
+
       var track_count = 0;
 
       for (k in validated_influencers[options[option]].tracks){ // loop through the validated songs for that mood
@@ -432,7 +432,7 @@ $(document).ready(function() {
             break
           }
         }
-        
+
       }
     }
 
@@ -535,6 +535,8 @@ $(document).ready(function() {
   console.log("Playlist ID: ", playlist_id);
   console.log("Owner ID: ", owner_id);
 
+  $('#collab-next-steps').html("Your top barbecue tracks have been added to the playlist. <a id='listenLink' class='listen-text-link' href='"+playlist_url+"'>Listen to it on Spotify.</a>");
+  
     if (access_token && playlist_type) {
 
       /// Call Spotify api in parallel for top songs; reduce, validate, and load songs in view
@@ -609,7 +611,7 @@ $(document).ready(function() {
               }
           }],
       }, function(err, results) {
-        
+
           // console.log('err = ', err);
       });
 
