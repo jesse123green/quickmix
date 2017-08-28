@@ -109,23 +109,17 @@
     </div>
     <div class="container">
       <div class="row options">
-        <div class="col-xs-12 col-sm-6 playlist-meta">
-          <div class="playlist-title">
-            <div class="label">TITLE</div>
-            <h2 id="playlist-title-text">BBQ</h2>
-          </div>
-          <!-- <div class="playlist-desc">
-            <h3>Your <i>{{type}}</i> playlist has <span id="playlist-meta">26 songs and is 1 hour and 28 minutes</span> long.</h3>
-          </div> -->
-        </div>
-      </div>
-      <div class="row">
         <div class="col-sm-4 col-sm-push-8 collab-section">
-
           <div class="label">YOUR WORK IS DONE</div>
-          <p class="collab-text" id="collab-next-steps"></p>
+          <p class="collab-text" id="collab-next-steps">Your top barbecue tracks have been added to the playlist.</p>
         </div>
         <div class="col-sm-7 col-sm-pull-4">
+          <div class="playlist-meta">
+            <div class="playlist-title">
+              <div class="label">TITLE</div>
+              <h2 id="playlist-title-text">BBQ</h2>
+            </div>
+          </div>
           <div class="label track-label" id="tracklist-title">YOUR TOP BBQ TRACKS WERE ADDED</div>
           <div class="song-info-loading"><img src="{{ url_for('static', filename='img/spinner-hangout.gif')}}" width="60" height="60"/></div>
           <div class="influencers hidden" id="collaborate-tracks">

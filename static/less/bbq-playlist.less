@@ -409,7 +409,12 @@ Playlist songs
 
 h1#spotifyOverlayText {
 	height: 100px;
+	font-size: 24px;
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 10px;
 }
+
 
 .build-content {
 	height: 100%;
@@ -423,14 +428,6 @@ h1#spotifyOverlayText {
 .build-content-middle {
     display: table-cell;
     vertical-align: middle;
-}
-
-h1#build-message {
-	height: 100px;
-	font-size: 24px;
-	width: 80%;
-	margin: 0 auto;
-	margin-top: 10px;
 }
 
 .build-content-inner {
@@ -586,6 +583,19 @@ Submit section
 Media Queries
 */
 
+@media only screen and (min-width:600px) {
+	h1#spotifyOverlayText {
+		height: 100px;
+		font-size: 36px;
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 16px;
+	}
+
+	.build-content-inner {
+	    max-width: 540px;
+	}
+}
 
 @media only screen and (min-width:768px) {
 	.tracks {
@@ -626,22 +636,10 @@ Media Queries
 	}
 }
 
-@media only screen and (min-width:600px) {
-	h1#build-message {
-		height: 100px;
-		font-size: 36px;
-		width: 80%;
-		margin: 0 auto;
-		margin-top: 16px;
-	}
-
-	.build-content-inner {
-	    max-width: 540px;
-	}
-}
 
 .playlist-meta {
 	padding-top: 0px;
+	padding-bottom: 16px;
 }
 .collab-section {
 	margin-bottom: 50px;
