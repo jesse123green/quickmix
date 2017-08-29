@@ -363,21 +363,41 @@ $(document).ready(function() {
     shuffle(tracks);
     selected_tracks = [];
     selected_tracks_ids = [];
-    i = 0;
+    selected_tracks_artists = [];
     selected_artist_influencers = []
-    while (currentLength < playlistLength){
-      if (selected_tracks_ids.includes(tracks[i].id)){
-        console.log('TRACK SKIPPED DUP')
+
+    for (i = 0; i < n_tracks; i++){
+      console.log(i)
+      try {
+          track_id = tracks[i].id
+          track_name = tracks[i].name
+          track_artist = tracks[i].artists[0].name
+          track_image_url = tracks[i].album.images[1].url
+          track_preview_url = tracks[i].preview_url
+          track_uri = tracks[i].uri
+          track_length_ms = tracks[i]['duration_ms']
+
+      }
+      catch(err) {
+          console.log('Error adding song')
+          i += 1
+          continue
+      }
+
+      if (selected_tracks_ids.includes(track_id) || selected_tracks_artists.includes(track_artist)){
+        console.log('TRACK SKIPPED DUP',track_artist)
+        i += 1
         continue
       }
-      if (!(selected_artist_influencers.includes(artist_influencers[tracks[i].id]))){
-        selected_artist_influencers.push(artist_influencers[tracks[i].id])
+      if (!(selected_artist_influencers.includes(artist_influencers[track_id]))){
+        selected_artist_influencers.push(artist_influencers[track_id])
       }
-      selected_tracks_ids.push(tracks[i].id)
+      selected_tracks_ids.push(track_id)
+      selected_tracks_artists.push(track_artist)
       selected_tracks.push(tracks[i])
-      currentLength += tracks[i]['duration_ms'];
-      i += 1;
-      if (i >= n_tracks) {
+      currentLength += track_length_ms;
+      
+      if (currentLength >= playlistLength) {
         break;
       }
     }
@@ -406,8 +426,13 @@ $(document).ready(function() {
           tracks = selectPlaylistTracks(response.tracks,length_option);
           playlist_length_ms = 0;
           for (i in tracks) {
-            playlist_length_ms += tracks[i]['duration_ms'];
-            PVM.addSong(tracks[i].id,tracks[i].name,tracks[i].artists[0].name,tracks[i].album.images[1].url,tracks[i].preview_url,tracks[i].uri);
+            try {
+                PVM.addSong(tracks[i].id,tracks[i].name,tracks[i].artists[0].name,tracks[i].album.images[1].url,tracks[i].preview_url,tracks[i].uri);
+                playlist_length_ms += tracks[i]['duration_ms'];
+            }
+            catch(err) {
+                console.log('Error adding song, should have been detected')
+            }
           }
           playlist_length = secondsToTime(playlist_length_ms/1000);
           if (playlist_length.h == 0){
