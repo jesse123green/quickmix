@@ -186,7 +186,7 @@ $(document).ready(function() {
       $('#spotifyOverlayText').html(message);
     }
     else {
-      console.log('error is in change message')
+      // console.log('error is in change message')
     }
     callback()
   }
@@ -217,7 +217,7 @@ $(document).ready(function() {
               completeCount++;
               if (completeCount == total_messages){
                 wait = ((Math.random() * 2) + 1.25) * 1000
-                console.log('DONE FINALLY')
+                // console.log('DONE FINALLY')
                 setTimeout(nm_callback, wait);
               }
             })
@@ -241,7 +241,7 @@ $(document).ready(function() {
           callback(response)
         },
         error: function(result){
-          console.log('API CALL ERROR')
+          // console.log('API CALL ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -269,7 +269,7 @@ $(document).ready(function() {
           callback(response)
         },
         error: function(result){
-          console.log('API CALL ERROR')
+          // console.log('API CALL ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -300,7 +300,7 @@ $(document).ready(function() {
 
         },
         error: function(result){
-          console.log('QM VALIDATE ERROR')
+          // console.log('QM VALIDATE ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -367,7 +367,7 @@ $(document).ready(function() {
     selected_artist_influencers = []
 
     for (i = 0; i < n_tracks; i++){
-      console.log(i)
+      // console.log(i)
       try {
           track_id = tracks[i].id
           track_name = tracks[i].name
@@ -379,13 +379,13 @@ $(document).ready(function() {
 
       }
       catch(err) {
-          console.log('Error adding song')
+          // console.log('Error adding song')
           i += 1
           continue
       }
 
       if (selected_tracks_ids.includes(track_id) || selected_tracks_artists.includes(track_artist)){
-        console.log('TRACK SKIPPED DUP',track_artist)
+        // console.log('TRACK SKIPPED DUP',track_artist)
         i += 1
         continue
       }
@@ -403,7 +403,7 @@ $(document).ready(function() {
     }
     artists_str = selected_artist_influencers.join(', ')
     $('#artist-influencers').html("We kicked off the playlist with great BBQ songs similar to some of your favorites: <strong>"+artists_str+"</strong>. <br/><a id='listenLink' class='listen-text-link' href=''></a>")
-    console.log(selected_artist_influencers.join(', '))
+    // console.log(selected_artist_influencers.join(', '))
     return selected_tracks;
   }
 
@@ -415,7 +415,7 @@ $(document).ready(function() {
       tracklist.push(tracks[i].id)
       artist_influencers[tracks[i].id] = user_track_data[tracks[i].influencer].artist
     }
-    console.log(artist_influencers)
+    // console.log(artist_influencers)
     $.ajax({
         url: 'https://api.spotify.com/v1/tracks',
         data: {'ids':tracklist.join()},
@@ -431,7 +431,7 @@ $(document).ready(function() {
                 playlist_length_ms += tracks[i]['duration_ms'];
             }
             catch(err) {
-                console.log('Error adding song, should have been detected')
+                // console.log('Error adding song, should have been detected')
             }
           }
           playlist_length = secondsToTime(playlist_length_ms/1000);
@@ -441,13 +441,13 @@ $(document).ready(function() {
           else {
             length_text = "1 hour and " + playlist_length.m + " minutes"
           }
-          console.log('PLAYLIST COMPLETE')
+          // console.log('PLAYLIST COMPLETE')
           callback()
           // console.log(tracks)
           // $("#playlist-meta").text(tracks.length + " songs and is " + length_text);
         },
         error: function(result){
-          console.log('SPOTIFY TRACKS ERROR')
+          // console.log('SPOTIFY TRACKS ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -459,9 +459,9 @@ $(document).ready(function() {
 
   function generateQuickmixPlaylist(callback){
 
-    console.log('influencers')
-    console.log(IVM.influencers())
-    console.log(IVM.moodOption(),'mood option')
+    // console.log('influencers')
+    // console.log(IVM.influencers())
+    // console.log(IVM.moodOption(),'mood option')
 
     data = {'tracks':IVM.influencers(),'pl':playlist_type,'playlist_option':playlist_option}
     $.ajax({
@@ -471,16 +471,16 @@ $(document).ready(function() {
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
             result = JSON.parse(result['body'])
-            console.log('PLAYLIST START')
+            // console.log('PLAYLIST START')
             buildPlaylist(result.data.songs,function(){
-              console.log('PLAYLIST SHOULD BE DONE')
+              // console.log('PLAYLIST SHOULD BE DONE')
               callback();
             });
             // $('.song-info-loading').hide();
             // $('.influencers').removeClass("hidden");
         },
         error: function(result){
-          console.log('API CALL ERROR')
+          // console.log('API CALL ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -500,15 +500,15 @@ $(document).ready(function() {
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
-          console.log(result);
+          // console.log(result);
             result = JSON.parse(result['body'])
-            console.log(result)
+            // console.log(result)
             callback();
             // $('.song-info-loading').hide();
             // $('.influencers').removeClass("hidden");
         },
         error: function(result){
-          console.log('QM PLAYLIST SAVE ERROR')
+          // console.log('QM PLAYLIST SAVE ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -520,7 +520,7 @@ $(document).ready(function() {
   }
 
   function loadInfluencers(callback){
-    console.log(validated_influencers)
+    // console.log(validated_influencers)
     options = ['option1','option2','option3']
 
     for (var option in options){ // loop through each of the 3 mood options
@@ -538,7 +538,7 @@ $(document).ready(function() {
   function exportToSpotify(callback){
 
     ga('send', 'event', 'button', 'click', 'owner-export', 'bbq');
-    console.log('EXPORTING')
+    // console.log('EXPORTING')
     playlist_title = username + '’s Labor Day BBQ'
     $('#playlist-title-text').text(playlist_title);
     data = {
@@ -558,7 +558,7 @@ $(document).ready(function() {
         playlist_id = result.id;
 
         var tracklist_export = [];
-        console.log('SET COLLAB')
+        // console.log('SET COLLAB')
         //Set Collab URL
         $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + userid + "/" + playlist_id + "?pl_option=" + playlist_option);
         playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
@@ -570,7 +570,7 @@ $(document).ready(function() {
           tracklist_export.push(PVM.songs()[i].uri)
         }
         // Populate playlist with tracks
-        console.log(tracklist_export)
+        // console.log(tracklist_export)
         $.ajax({
           type : "POST",
           url : "https://api.spotify.com/v1/users/"+userid+"/playlists/"+playlist_id+"/tracks?uri",
@@ -588,7 +588,7 @@ $(document).ready(function() {
 
           },
           error: function(result){
-            console.log('ERROR CREATING PLAYLIST')
+            // console.log('ERROR CREATING PLAYLIST')
             changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
               IS_LOAD_ERROR = true;
               callback()
@@ -597,7 +597,7 @@ $(document).ready(function() {
         });
       },
       error: function(result){
-        console.log('ERROR ADDING TRACKS')
+        // console.log('ERROR ADDING TRACKS')
         changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
           IS_LOAD_ERROR = true;
           callback()
@@ -615,10 +615,10 @@ $(document).ready(function() {
       },
       contentType: 'application/json;charset=UTF-8',
       success: function(result) {
-        console.log(result)
+        // console.log(result)
         $('#playlist-title-text').text(result.name);
         tracks = result.tracks.items
-        console.log(tracks)
+        // console.log(tracks)
         for (i in tracks){
           PVM.addSong(tracks[i].track.id,tracks[i].track.name,tracks[i].track.artists[0].name,tracks[i].track.album.images[1].url,tracks[i].track.preview_url,tracks[i].track.uri)
         }
@@ -632,7 +632,7 @@ $(document).ready(function() {
         callback()
       },
       error: function(result){
-        console.log('API CALL ERROR')
+        // console.log('API CALL ERROR')
         changeMessage('Something went wrong.<br><a href="/bbq">Please Try Again</a>',function(){
           IS_LOAD_ERROR = true;
           callback()
@@ -650,19 +650,19 @@ $(document).ready(function() {
                 "Getting your playlist"
               ]
               nextMessage(build_messages,function(){
-                console.log('LOAD MESSAGES DONE')
+                // console.log('LOAD MESSAGES DONE')
                 callback()
               });
           },
           owner_playlist: function(callback){
-              console.log('owner playlist')
+              // console.log('owner playlist')
               loadOwnerPlaylist(function(results){
                 callback(null, results);
               })
           },
           remove_overlay: ['owner_playlist','load_messages', function(callback, results){
-              console.log('remove_overlay')
-              console.log(PVM.songs())
+              // console.log('remove_overlay')
+              // console.log(PVM.songs())
               if (!IS_LOAD_ERROR) {
                 removeOverlay(function(){
                   callback(null);
@@ -684,7 +684,7 @@ $(document).ready(function() {
                 "Adding them to the playlist"
               ]
               nextMessage(build_messages,function(){
-                console.log('LOAD MESSAGES DONE')
+                // console.log('LOAD MESSAGES DONE')
                 callback()
               });
           },
@@ -722,7 +722,7 @@ $(document).ready(function() {
           }],
           validate_songs: ['reduce_songs', function(callback, results){
               validateInfluencers(function(){
-                console.log('validateInfluencers')
+                // console.log('validateInfluencers')
                   loadInfluencers(function() {
                     // console.log('hello ivm')
                     // console.log(IVM.influencers());
@@ -732,26 +732,26 @@ $(document).ready(function() {
               })
           }],
           quickmix_playlist: ['validate_songs', function(callback, results){
-              console.log('quickmix_playlist')
+              // console.log('quickmix_playlist')
               generateQuickmixPlaylist(function(){
                 callback(null);
               })
           }],
           export_playlist: ['quickmix_playlist','user_info', function(callback, results){
-              console.log('export_playlist')
+              // console.log('export_playlist')
               exportToSpotify(function(){
                 callback(null);
               })
           }],
           save_playlist: ['export_playlist', function(callback, results){
-              console.log('quickmix playlist save')
+              // console.log('quickmix playlist save')
               quickmixPlaylistSave(function(){
-                console.log('quickmix playlist save complete')
+                // console.log('quickmix playlist save complete')
                 callback(null);
               })
           }],
           remove_overlay: ['save_playlist','load_messages', function(callback, results){
-              console.log('remove_overlay')
+              // console.log('remove_overlay')
               if (!IS_LOAD_ERROR) {
                 removeOverlay(function(){
                   callback(null);
@@ -774,7 +774,7 @@ $(document).ready(function() {
   var currentBrowserState = history.state
   if (currentBrowserState && currentBrowserState.playlist_id && currentBrowserState.userid) {
     PLAYLIST_EXISTS = true;
-    console.log(currentBrowserState)
+    // console.log(currentBrowserState)
     EXISTING_PLAYLIST_ID = currentBrowserState.playlist_id;
     EXISTING_USER_ID = currentBrowserState.userid;
   }
@@ -794,13 +794,13 @@ $(document).ready(function() {
 
   IVM.moodOption('option'+playlist_option)// Set Knockout option to correct mood
 
-  console.log("Access Token:", access_token);
-  console.log("Playlist Type: ", playlist_type);
-  console.log("Playlist Option: ", playlist_option);
+  // console.log("Access Token:", access_token);
+  // console.log("Playlist Type: ", playlist_type);
+  // console.log("Playlist Option: ", playlist_option);
 
   if (access_token && playlist_type) {
     if (PLAYLIST_EXISTS == true){
-      console.log("PLAYLIST '" + currentBrowserState.playlist_id + "' EXISTS, DON'T CREATE A NEW ONE");
+      // console.log("PLAYLIST '" + currentBrowserState.playlist_id + "' EXISTS, DON'T CREATE A NEW ONE");
       getExistingPlaylist()
     }
     else {

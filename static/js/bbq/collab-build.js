@@ -29,7 +29,7 @@ function InfluencersViewModel() {
     self.influencersLoaded = false;
 
     self.songs = function(option){
-      console.log(option,'OPTION')
+      // console.log(option,'OPTION')
       if (option == '1'){
         return self.songs1()
       }
@@ -43,7 +43,7 @@ function InfluencersViewModel() {
 
     // Operations
     self.addSong = function(trackid,title,artist,coverart,option,previewURL,score,uri) {
-      console.log(option,'adding song')
+      // console.log(option,'adding song')
       if (option == 'option1'){
         self.songs1.push(new influencerSong(trackid,title,artist,coverart,previewURL,score,uri));
       }
@@ -202,7 +202,7 @@ $(document).ready(function() {
       $('#spotifyOverlayText').html(message);
     }
     else {
-      console.log('error is in change message')
+      // console.log('error is in change message')
     }
     callback()
   }
@@ -237,7 +237,7 @@ $(document).ready(function() {
               completeCount++;
               if (completeCount == total_messages){
                 wait = ((Math.random() * 2) + 1.25) * 1000
-                console.log('DONE FINALLY')
+                // console.log('DONE FINALLY')
                 setTimeout(nm_callback, wait);
               }
             })
@@ -261,7 +261,7 @@ $(document).ready(function() {
           callback(response)
         },
         error: function(result){
-          console.log('SPOTIFY TOP TRACKS ERROR')
+          // console.log('SPOTIFY TOP TRACKS ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -278,7 +278,7 @@ $(document).ready(function() {
           'Authorization': 'Bearer ' + access_token
         },
         success: function(response) {
-          console.log(response)
+          // console.log(response)
           userid = response.id;
           display_name = response.display_name;
           if (display_name == null){
@@ -290,7 +290,7 @@ $(document).ready(function() {
           callback(response)
         },
         error: function(result){
-          console.log('SPOTIFY USER INFO ERROR')
+          // console.log('SPOTIFY USER INFO ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -321,7 +321,7 @@ $(document).ready(function() {
 
         },
         error: function(result){
-          console.log('QM VALIDATE ERROR')
+          // console.log('QM VALIDATE ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -367,52 +367,11 @@ $(document).ready(function() {
       return obj;
   }
 
-  function selectPlaylistTracks(tracks,length_option){
-    var playlistLength ;
-    var currentLength = 0;
-    var n_tracks = tracks.length;
-
-    if (length_option == 'length30'){
-      playlistLength = 1800000;
-    }
-    else if (length_option == 'length60'){
-      playlistLength = 3600000;
-    }
-    else {
-     playlistLength = 5400000;
-    }
-    shuffle(tracks);
-    selected_tracks = [];
-    selected_tracks_ids = [];
-    i = 0;
-    selected_artist_influencers = []
-    while (currentLength < playlistLength){
-      if (selected_tracks_ids.includes(tracks[i].id)){
-        console.log('TRACK SKIPPED DUP')
-        continue
-      }
-      if (!(selected_artist_influencers.includes(artist_influencers[tracks[i].id]))){
-        selected_artist_influencers.push(artist_influencers[tracks[i].id])
-      }
-      selected_tracks_ids.push(tracks[i].id)
-      selected_tracks.push(tracks[i])
-      currentLength += tracks[i]['duration_ms'];
-      i += 1;
-      if (i >= n_tracks) {
-        break;
-      }
-    }
-    artists_str = selected_artist_influencers.join(', ')
-    $('#artist-influencers').html("We kicked off the playlist with great BBQ songs similar to some of your favorites: <strong>"+artists_str+"</strong>.")
-    console.log(selected_artist_influencers.join(', '))
-    return selected_tracks;
-  }
-
   function loadInfluencers(callback){
 
     n_songs = 3
 
-    console.log(validated_influencers)
+    // console.log(validated_influencers)
     options = ['option1','option2','option3']
 
     for (var option in options){ // loop through each of the 3 mood options
@@ -426,7 +385,7 @@ $(document).ready(function() {
 
         if (!(playlist_track_ids.includes(trackid)) && score > 0){ // Only add collaborator songs that meet criteria
           track_count += 1;
-          console.log(track.uri)
+          // console.log(track.uri)
           IVM.addSong(trackid,track.title,track.artist,track.coverart,options[option],track.previewURL,score,track.uri); // add to knockout view
           if (track_count == n_songs){
             break
@@ -449,10 +408,10 @@ $(document).ready(function() {
       },
       contentType: 'application/json;charset=UTF-8',
       success: function(result) {
-        console.log(result)
+        // console.log(result)
         $('#playlist-title-text').text(result.name);
         tracks = result.tracks.items
-        console.log(tracks)
+        // console.log(tracks)
         for (i in tracks){
           playlist_track_ids.push(tracks[i].track.id)
           PVM.addSong(tracks[i].track.id,tracks[i].track.name,tracks[i].track.artists[0].name,tracks[i].track.album.images[1].url,tracks[i].track.preview_url,tracks[i].track.uri)
@@ -460,7 +419,7 @@ $(document).ready(function() {
         callback()
       },
       error: function(result){
-        console.log('SPOTIFY GET PLAYLIST ERROR')
+        // console.log('SPOTIFY GET PLAYLIST ERROR')
         changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
           IS_LOAD_ERROR = true;
           callback()
@@ -473,11 +432,11 @@ $(document).ready(function() {
   function exportToSpotify(callback){
 
     ga('send', 'event', 'button', 'click', 'collab-export', 'bbq');
-    console.log('EXPORTING',playlist_option)
+    // console.log('EXPORTING',playlist_option)
 
     var export_tracklist = [];
     songs  = IVM.songs(playlist_option)
-    console.log(songs)
+    // console.log(songs)
     for (i in songs){
       export_tracklist.push(songs[i].uri)
     }
@@ -491,11 +450,11 @@ $(document).ready(function() {
         data: JSON.stringify(data, null, '\t'),
         contentType: 'application/json;charset=UTF-8',
         success: function(result) {
-          console.log(result)
+          // console.log(result)
           callback();
         },
         error: function(result){
-          console.log('SPOTIFY EXPORT ERROR')
+          // console.log('SPOTIFY EXPORT ERROR')
           changeMessage('Something went wrong.<br><a href="/bbq/collaborate/welcome/' + owner_id + '/' + playlist_id + '">Please Try Again</a>',function(){
             IS_LOAD_ERROR = true;
             callback()
@@ -529,11 +488,11 @@ $(document).ready(function() {
 
   IVM.moodOption('option'+playlist_option)// Set Knockout option to correct mood
 
-  console.log("Access Token:", access_token);
-  console.log("Playlist Type: ", playlist_type);
-  console.log("Playlist Option: ", playlist_option);
-  console.log("Playlist ID: ", playlist_id);
-  console.log("Owner ID: ", owner_id);
+  // console.log("Access Token:", access_token);
+  // console.log("Playlist Type: ", playlist_type);
+  // console.log("Playlist Option: ", playlist_option);
+  // console.log("Playlist ID: ", playlist_id);
+  // console.log("Owner ID: ", owner_id);
 
   $('#collab-next-steps').html("Your top barbecue tracks have been added to the playlist. <br/><a id='listenLink' class='listen-text-link' href='"+playlist_url+"'>Listen on Spotify</a>");
 
@@ -543,7 +502,7 @@ $(document).ready(function() {
       async.auto({
           load_messages: function(callback){
               nextMessage(function(){
-                console.log('LOAD MESSAGES DONE')
+                // console.log('LOAD MESSAGES DONE')
                 callback()
               });
           },
@@ -578,7 +537,7 @@ $(document).ready(function() {
                 for (i in results[terms[term]].items){
                   if (!(results[terms[term]].items[i].id in user_track_data)){
                     user_tracks.push({'id':results[terms[term]].items[i].id,'artist':results[terms[term]].items[i].artists[0].id})
-                    console.log(results[terms[term]].items[i].uri)
+                    // console.log(results[terms[term]].items[i].uri)
                     user_track_data[results[terms[term]].items[i].id] = {'uri':results[terms[term]].items[i].uri,'title':results[terms[term]].items[i].name,'artist':results[terms[term]].items[i].artists[0].name,'coverart':results[terms[term]].items[i].album.images[1].url,'previewURL':results[terms[term]].items[i].preview_url}
                   }
                 }
@@ -587,7 +546,7 @@ $(document).ready(function() {
           }],
           validate_songs: ['reduce_songs','owner_playlist', function(callback, results){
               validateInfluencers(function(){
-                console.log('validateInfluencers')
+                // console.log('validateInfluencers')
                   loadInfluencers(function() {
                     // console.log('hello ivm')
                     // console.log(IVM.influencers());
@@ -597,13 +556,13 @@ $(document).ready(function() {
               })
           }],
           export_playlist: ['validate_songs', function(callback, results){
-              console.log('export_playlist')
+              // console.log('export_playlist')
               exportToSpotify(function(){
                 callback(null);
               })
           }],
           remove_overlay: ['export_playlist','load_messages', function(callback, results){
-              console.log('remove_overlay')
+              // console.log('remove_overlay')
               if (!IS_LOAD_ERROR) {
                 removeOverlay(function(){
                   callback(null);
