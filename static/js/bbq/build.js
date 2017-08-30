@@ -583,7 +583,7 @@ $(document).ready(function() {
 
             // insert a new history item into the history stack with our playlist_id, and add the id to the current url.
             var stateObj = { playlist_id: playlist_id, userid: userid };
-            history.pushState(stateObj, "", window.location + "&pid=" + playlist_id);
+            history.replaceState(stateObj, "", window.location + "&pid=" + playlist_id);
             callback()
 
           },
