@@ -117,28 +117,33 @@
         </div>
       </div> -->
       <div class="row options">
-        <div class="col-sm-4 col-sm-push-8 collab-section">
+        <div class="col-sm-5 collab-section">
 
-          <div class="label">HERE’S YOUR PLAYLIST</div>
+          <div class="playlist-title"><h2>Here’s your playlist</h2></div>
           <p class="collab-text" id="artist-influencers"></p>
-          <div class="label">MAKE IT COLLABORATIVE</div>
-          <p class="collab-text">Share this link with your friends so they can add their own BBQ tracks.</p>
-          <input onClick="this.select();" class="collab-url-input" id="collabLink" type="text" name="collabUrl" value="Loading URL…" readonly></input>
-          <p class="collab-copy-link">
-            <a id="collab-link-anchor-id" class="collab-link-anchor" data-clipboard-target="#collabLink" href="#">Copy Link</a>
-          </p>
-          <p class="copy-success" style="display:none">
-            Link copied!
-          </p>
+
+          <div class="share-panel">
+            <div class="label">MAKE IT COLLABORATIVE</div>
+            <p class="collab-text">Share this link with your friends so they can add their own BBQ tracks.</p>
+            <input onClick="this.select();" class="collab-url-input" id="collabLink" type="text" name="collabUrl" value="Loading URL…" readonly></input>
+            <p class="collab-copy-link">
+              <a id="collab-link-anchor-id" class="collab-link-anchor" data-clipboard-target="#collabLink" href="#">Copy Link</a>
+            </p>
+            <p class="copy-success" style="display:none">
+              Link copied!
+            </p>
+          </div>
+
         </div>
-        <div class="col-sm-7 col-sm-pull-4">
+        <div class="col-sm-6 col-sm-push-1">
           <div class="playlist-meta">
             <div class="playlist-title">
-              <div class="label">TITLE</div>
-              <h2 id="playlist-title-text">Playlist Title.</h2>
+              <!-- <div class="label">TITLE</div> -->
+              <!-- <h2 id="playlist-title-text">Playlist Title.</h2> -->
+              <div id="playlist-title-text" class="label">Playlist Title.</div>
             </div>
           </div>
-          <div class="label track-label">TRACKS</div>
+          <!-- <div class="label track-label">TRACKS</div> -->
           <div class="song-info-loading"><img src="../static/img/spinner-hangout.gif" width="60" height="60"/></div>
           <div class="influencers hidden">
             <div class="song-info hangout">
@@ -177,7 +182,7 @@
       <div class="row submit">
         <div class="col-xs-12">
           <div class="button-wrapper">
-            <button class="btn btn-default submit-button hangout" id="export-bottom">Play on Spotify</button>
+            <button class="btn btn-default submit-button hangout" id="export-bottom">Listen on Spotify</button>
             <div class="start-over-wrapper">
               <a class="start-over link-shadow underline-link .underline-link hangout" href="/">Or create a new playlist</a>
             </div>

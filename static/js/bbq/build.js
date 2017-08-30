@@ -396,13 +396,13 @@ $(document).ready(function() {
       selected_tracks_artists.push(track_artist)
       selected_tracks.push(tracks[i])
       currentLength += track_length_ms;
-      
+
       if (currentLength >= playlistLength) {
         break;
       }
     }
     artists_str = selected_artist_influencers.join(', ')
-    $('#artist-influencers').html("We kicked off the playlist with great BBQ songs similar to some of your favorites: <strong>"+artists_str+"</strong>. <a id='listenLink' class='listen-text-link' href=''></a>")
+    $('#artist-influencers').html("We kicked off the playlist with great BBQ songs similar to some of your favorites: <strong>"+artists_str+"</strong>. <br/><a id='listenLink' class='listen-text-link' href=''></a>")
     console.log(selected_artist_influencers.join(', '))
     return selected_tracks;
   }
@@ -563,7 +563,7 @@ $(document).ready(function() {
         $('#collabLink').val("http://www.quickmix.io/bbq/collaborate/welcome/" + userid + "/" + playlist_id + "?pl_option=" + playlist_option);
         playlist_url = 'https://open.spotify.com/user/' + userid + '/playlist/' + playlist_id
 
-        $("#listenLink").html("Listen to it on Spotify.");
+        $("#listenLink").html("Listen on Spotify");
         $("#listenLink").attr("href",playlist_url);
 
         for (i in PVM.songs()){

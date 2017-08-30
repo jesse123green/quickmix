@@ -535,8 +535,8 @@ $(document).ready(function() {
   console.log("Playlist ID: ", playlist_id);
   console.log("Owner ID: ", owner_id);
 
-  $('#collab-next-steps').html("Your top barbecue tracks have been added to the playlist. <a id='listenLink' class='listen-text-link' href='"+playlist_url+"'>Listen to it on Spotify.</a>");
-  
+  $('#collab-next-steps').html("Your top barbecue tracks have been added to the playlist. <br/><a id='listenLink' class='listen-text-link' href='"+playlist_url+"'>Listen on Spotify</a>");
+
     if (access_token && playlist_type) {
 
       /// Call Spotify api in parallel for top songs; reduce, validate, and load songs in view

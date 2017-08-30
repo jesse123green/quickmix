@@ -89,7 +89,26 @@ div.label {
 	color: @hangout-light;
 	letter-spacing: -0.5px;
 	padding-left: 0;
+	text-transform: uppercase;
 }
+
+.share-panel {
+	background: @hangout-light;
+	border-radius: 5px;
+	max-width: 424px;
+	padding: 16px;
+	.label {
+		color: white
+	}
+	.collab-text {
+		color: white;
+	}
+}
+
+#export-bottom:hover {
+	background-color: darken(@hangout-light, 10%)
+}
+
 div.track-label {
 	// padding-left: 15px;
 	margin-bottom: 15px !important;
@@ -185,28 +204,33 @@ Header section
 .collab-copy-link a, .copy-success {
 	display: block;
 	font-size: 15px;
-	color: @hangout-light;
+	color: white;
 	text-decoration: none;
-	margin: 8px 0;
+	margin: 8px auto;
+	text-align: center;
 }
 .collab-copy-link a:hover {
 	text-decoration: underline;
-	color: darken(@hangout-light, 10%);
 }
 .copy-success {
-	color: @party-dark;
+	color: white;
 }
 
 a#listenLink {
-	display: block;
+	display: inline-block;
+	background-color: rgba(0,0,0,0.03);
+	padding: 6px 10px;
+	border-radius: 5px;
 	font-size: 15px;
 	color: @hangout-light;
 	text-decoration: none;
-	margin: 8px 0;
+	margin: 12px 0;
+	color: #1ED760;
+	font-weight: 500;
 }
 a#listenLink:hover {
-	text-decoration: underline;
-	color: darken(@hangout-light, 10%);
+	background-color: #1ED760;
+	color: white;
 }
 
 .playlist-desc{
