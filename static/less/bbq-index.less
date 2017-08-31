@@ -63,10 +63,10 @@ a.active {
 
 
 .collab-text {
-	margin: 0 auto;
+	// margin: 0 auto;
 	max-width: 480px;
-	padding: 30px 10px 0px 10px;
-	text-align: center;
+	padding: 0px 10px 0px 10px;
+	// text-align: center;
 
 	div.label {
 		font-size: 14px;
@@ -77,6 +77,9 @@ a.active {
 	}
 	p {
 		color: white;
+		font-size: 16px;
+		margin-top: 0px;
+		padding-top: 0px;
 	}
 }
 
@@ -88,8 +91,12 @@ a.active {
 	padding: 0;
 }
 
+.steps-container {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
 header {
-	text-align: center;
 	color: white;
 	h1{
 		font-size: 26px;
@@ -98,23 +105,49 @@ header {
     	max-width: 320px;
 	}
 	h2{
-		font-size: 32px;
+		// font-size: 32px;
+		font-size: 20px;
 		font-weight: 500;
 		line-height: 130%;
-	  margin: 60px auto 50px auto;
+	  margin: 16px auto 50px auto;
     max-width: 480px;
+		text-align: center;
+	}
+	h3 {
+		color: @hangout-light;
+		margin-bottom: 4px !important;
+		font-size: 20px;
+	}
+	h3 .step-number {
+		color: @gray-dark;
+		background-color: @hangout-light;
+		// display: block;
+		display: inline-block;
+		padding: 5px;
+		// width: 26px;
+		// height: 26px;
+		width: 20px;
+		height: 20px;
+		// font-size: 18px;
+		font-size: 12px;
+		line-height: 1;
+		text-align: center;
+		border-radius: 50%;
+		margin-bottom: 10px;
+		font-weight: 700;
+		vertical-align: top;
 	}
 	p {
 		font-size: 18px;
 		font-weight: 500;
 		line-height: 130%;
     max-width: 480px;
-		margin: 0 auto;
-		margin-top: 10px;
-		text-align: center;
+		margin-top: 0px;
 	}
 	.type-intro {
+		margin: 0 auto;
 		margin-top: 70px;
+		text-align: center;
 	}
 }
 
@@ -305,10 +338,50 @@ h1#build-message {
 	  font-size: 0;
 		margin: 0 auto;
 		margin-top: 30px;
-		margin-bottom: 50px;
+		margin-bottom: 10px;
 	}
 
 }
+
+@media only screen and (min-width:768px) {
+	.steps-container {
+		max-width: none;
+		// margin: 0 auto;
+	}
+	.overlay-content {
+		img {
+			width: 84px;
+			height: 84px;
+		}
+		h1 {
+			width: 540px;
+			font-size: 45px;
+			margin: 29px auto;
+	    }
+	}
+	header {
+
+		margin: 0;
+
+		h3 .step-number {
+			display: block;
+			width: 26px;
+			height: 26px;
+			font-size: 18px;
+			line-height: 1;
+			margin-bottom: 10px;
+			font-weight: 500;
+			vertical-align: top;
+		}
+		h2 {
+			font-size: 24px;
+		}
+		h3 {
+			font-size: 24px;
+		}
+	}
+}
+
 
 @media only screen and (min-width:992px) {
 }
@@ -384,21 +457,6 @@ body.home #inner-circle-layers {
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-
-
-@media only screen and (min-width:768px) {
-	.overlay-content {
-		img {
-			width: 84px;
-			height: 84px;
-		}
-		h1 {
-			width: 540px;
-			font-size: 45px;
-			margin: 29px auto;
-	    }
-	}
-}
 
 
 

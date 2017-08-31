@@ -43,10 +43,8 @@ a.active {
   margin-top: 30px;
 }
 .collab-text {
-  margin: 0 auto;
   max-width: 480px;
-  padding: 30px 10px 0px 10px;
-  text-align: center;
+  padding: 0px 10px 0px 10px;
 }
 .collab-text div.label {
   font-size: 14px;
@@ -57,6 +55,9 @@ a.active {
 }
 .collab-text p {
   color: white;
+  font-size: 16px;
+  margin-top: 0px;
+  padding-top: 0px;
 }
 .img-centered {
   margin: 0 auto;
@@ -64,8 +65,11 @@ a.active {
 .col-md-6 {
   padding: 0;
 }
+.steps-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
 header {
-  text-align: center;
   color: white;
 }
 header h1 {
@@ -75,23 +79,44 @@ header h1 {
   max-width: 320px;
 }
 header h2 {
-  font-size: 32px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 130%;
-  margin: 60px auto 50px auto;
+  margin: 16px auto 50px auto;
   max-width: 480px;
+  text-align: center;
+}
+header h3 {
+  color: #2FE7B1;
+  margin-bottom: 4px !important;
+  font-size: 20px;
+}
+header h3 .step-number {
+  color: #4C4F58;
+  background-color: #2FE7B1;
+  display: inline-block;
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  font-weight: 700;
+  vertical-align: top;
 }
 header p {
   font-size: 18px;
   font-weight: 500;
   line-height: 130%;
   max-width: 480px;
-  margin: 0 auto;
-  margin-top: 10px;
-  text-align: center;
+  margin-top: 0px;
 }
 header .type-intro {
+  margin: 0 auto;
   margin-top: 70px;
+  text-align: center;
 }
 .bbq-header {
   background: linear-gradient(to top, #0d2683, rgba(13, 38, 131, 0)), url('../img/bbq/bbq-header-bg.jpg');
@@ -248,7 +273,40 @@ h1#build-message {
     font-size: 0;
     margin: 0 auto;
     margin-top: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .steps-container {
+    max-width: none;
+  }
+  .overlay-content img {
+    width: 84px;
+    height: 84px;
+  }
+  .overlay-content h1 {
+    width: 540px;
+    font-size: 45px;
+    margin: 29px auto;
+  }
+  header {
+    margin: 0;
+  }
+  header h3 .step-number {
+    display: block;
+    width: 26px;
+    height: 26px;
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-weight: 500;
+    vertical-align: top;
+  }
+  header h2 {
+    font-size: 24px;
+  }
+  header h3 {
+    font-size: 24px;
   }
 }
 @media only screen and (min-width: 1440px) {
@@ -331,17 +389,6 @@ body.home #inner-circle-layers {
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
-  }
-}
-@media only screen and (min-width: 768px) {
-  .overlay-content img {
-    width: 84px;
-    height: 84px;
-  }
-  .overlay-content h1 {
-    width: 540px;
-    font-size: 45px;
-    margin: 29px auto;
   }
 }
 ul.social-buttons {
